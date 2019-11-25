@@ -15,11 +15,16 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "jsx": "react",
+    "outDir": "dist",
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react"
+    "noEmit": true
   },
   "include": [
-    "src"
+    "src",
+    "public"
+  ],
+  "exclude": [
+    "dist"
   ]
 }
