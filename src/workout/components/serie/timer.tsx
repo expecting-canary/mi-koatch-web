@@ -1,7 +1,8 @@
 import React from 'react';
 import { Timer } from '../common/timer';
+import { ISerie } from '../../models/serie';
 
-export function SerieTimer({ state: { state, start, rest } }: { state: Serie.Type }) {
+export function SerieTimer({ state: { state, start, rest } }: { state: ISerie }) {
   switch (state) {
     case 'TODO':
       return <Timer running={false} />;

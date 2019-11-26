@@ -1,5 +1,5 @@
 import React from 'react';
-import { IExercice } from '../../models/exercice.type';
+import { IExercice } from '../../models/exercice';
 import { Timer } from '../common/timer';
 
 export function ExerciceTimer({ state: { state, start } }: { state: IExercice }) {

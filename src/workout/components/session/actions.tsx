@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { SessionState } from '../../redux/managers/session';
-import { StateDispatch } from '../../redux/store';
+import { WorkoutDispatch } from '../../redux/workout';
+import { SessionState } from '../../models/session';
 
 export function SessionAction({ state }: { state: SessionState }) {
-  const dispatch = useDispatch() as StateDispatch;
+  const dispatch = useDispatch() as WorkoutDispatch;
   switch (state) {
     case 'TODO':
       const begin = () => dispatch({ type: 'SESSION_START' });

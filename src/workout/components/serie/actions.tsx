@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { StateDispatch } from '../../redux/store';
+import { WorkoutDispatch } from '../../redux/workout';
+import { SerieState } from '../../models/serie';
 
-export function SerieAction({ state }: { state: Serie.State }) {
-  const dispatch = useDispatch() as StateDispatch;
+export function SerieAction({ state }: { state: SerieState }) {
+  const dispatch = useDispatch() as WorkoutDispatch;
   switch (state) {
     case 'ONGOING':
       const rest = () => dispatch({ type: 'SERIE_REST' });

@@ -16,15 +16,10 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "react",
-    "outDir": "dist",
     "isolatedModules": true,
     "noEmit": true
   },
   "include": [
-    "src",
-    "public"
-  ],
-  "exclude": [
-    "dist"
+    "src"
   ]
 }

@@ -1,4 +1,4 @@
-import { ISession, initializeSession } from '../redux/managers/session';
+import { ISession, Session } from './session';
 
 export interface State {
   session: ISession;
@@ -10,7 +10,7 @@ export interface State {
 
 export function initializeState(): State {
   return {
-    session: initializeSession(),
+    session: Session.init(),
     index: {
       exercice: -1,
       serie: -1

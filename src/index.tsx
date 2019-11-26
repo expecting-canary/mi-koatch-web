@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
-import { store } from './workout/redux/store';
 import App from './App/App';
+import { Workout } from './workout/redux/workout';
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={Workout.store}>
     <App />
   </Provider>,
   document.getElementById('root')
