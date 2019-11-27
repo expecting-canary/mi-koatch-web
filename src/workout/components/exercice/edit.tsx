@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { IExercice, ExerciceEditable } from '../../models/exercice';
+import { IExercice, ExerciceEditable } from '../../models';
 import { WorkoutDispatch } from '../../redux/workout';
 import { NumberPicker } from '../common/picker/number';
 

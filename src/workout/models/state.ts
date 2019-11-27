@@ -1,4 +1,5 @@
-import { ISession, Session } from './session';
+import { ISelected } from '../redux/selected';
+import { ISession, Session } from './models';
 
 export interface State {
   session: ISession;
@@ -6,6 +7,7 @@ export interface State {
     exercice: number;
     serie: number;
   };
+  selected: ISelected;
 }
 
 export function initializeState(): State {
@@ -14,6 +16,10 @@ export function initializeState(): State {
     index: {
       exercice: -1,
       serie: -1
+    },
+    selected: {
+      type: 'NONE',
+      id: ''
     }
   };
 }

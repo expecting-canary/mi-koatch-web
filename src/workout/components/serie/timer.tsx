@@ -1,6 +1,6 @@
 import React from 'react';
 import { Timer } from '../common/timer';
-import { ISerie } from '../../models/serie';
+import { ISerie } from '../../models';
 
 export function SerieTimer({ state: { state, start, rest } }: { state: ISerie }) {
   switch (state) {

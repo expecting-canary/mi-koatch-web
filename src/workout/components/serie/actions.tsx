@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { WorkoutDispatch } from '../../redux/workout';
-import { SerieState } from '../../models/serie';
+import { SerieState } from '../../models';
 
 export function SerieAction({ state }: { state: SerieState }) {
   const dispatch = useDispatch() as WorkoutDispatch;

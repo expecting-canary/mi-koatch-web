@@ -1,18 +1,28 @@
 import React from 'react';
+import { ListGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { Timer } from '../workout/components/common/timer';
 import { Exercice } from '../workout/components/exercice/exercice';
+import { ExerciceItem } from '../workout/components/exercice/info';
+import { SerieItem } from '../workout/components/serie/info';
 import { Serie } from '../workout/components/serie/serie';
 import { Session } from '../workout/components/session/session';
 import { State } from '../workout/models/state';
 import { Workout } from '../workout/redux/workout';
 import './App.scss';
-import { Timer } from '../workout/components/common/timer';
 
 const App: React.FC = () => {
+  const exercice = useSelector(Workout.get.exercice.ongoing);
+  const serie = useSelector(Workout.get.serie.ongoing);
+
   return (
     <div>
       <WorkoutTimer />
       <MainDisplay />
+      <ListGroup>
+        <ExerciceItem {...{ exercice }} onClick={console.log} />
+        <SerieItem {...{ serie }} />
+      </ListGroup>
     </div>
   );
 };

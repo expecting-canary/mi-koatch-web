@@ -4,6 +4,7 @@
   "plugins": ["react-hooks"],
   "jsRules": {},
   "rules": {
-    "no-namespace": false
+    "no-namespace": false,
+    "jsx-boolean-value": false
   }
 }

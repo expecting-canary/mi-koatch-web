@@ -5,6 +5,7 @@ import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import App from './App/App';
 import { Workout } from './workout/redux/workout';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <Provider store={Workout.store}>

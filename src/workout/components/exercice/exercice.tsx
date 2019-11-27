@@ -1,5 +1,5 @@
 import React from 'react';
-import { IExercice } from '../../models/exercice';
+import { IExercice } from '../../models';
 import { ExerciceEdit } from './edit';
 import { ExerciceTimer } from './timer';
 

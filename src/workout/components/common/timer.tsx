@@ -12,42 +12,34 @@ export function Timer({ start = new Date(), running = true }: { start?: Date; ru
 
   useInterval(() => setTimer(Date.now() - start.getTime()), running ? 10 : null);
 
-  let time = timer;
-  const days = Math.floor(time / DAY);
-  time -= days * DAY;
-  const hours = Math.floor(time / HOUR);
-  time -= hours * HOUR;
-  const minutes = Math.floor(time / MINUTE);
-  time -= minutes * MINUTE;
-  let secondes = Math.floor(time / SECONDE);
-  time -= secondes * SECONDE;
-  const secondesText = secondes < 10 ? '0' + secondes : secondes;
+  return <span>{getTimer(timer)}</span>;
+}
 
-  if (days) {
-    return (
-      <div>
-        {days}:{hours}:{minutes}:{secondesText}
-      </div>
-    );
-  } else if (hours) {
-    return (
-      <div>
-        {hours}:{minutes}:{secondesText}
-      </div>
-    );
-  } else if (minutes) {
-    return (
-      <div>
-        {minutes}:{secondesText}
-      </div>
-    );
-  } else {
-    const hundredths = Math.floor(time / 10);
-    const hundredthsText = hundredths < 10 ? '0' + hundredths : hundredths;
-    return (
-      <div>
-        {secondesText}:{hundredthsText}
-      </div>
-    );
-  }
+function getTimer(timer: number) {
+  const days = Math.floor(timer / DAY);
+  timer -= days * DAY;
+  const hours = Math.floor(timer / HOUR);
+  timer -= hours * HOUR;
+  const minutes = Math.floor(timer / MINUTE);
+  timer -= minutes * MINUTE;
+  const secondes = Math.floor(timer / SECONDE);
+  timer -= secondes * SECONDE;
+  const hundredths = Math.floor(timer / 10);
+
+  return getText(days, hours, minutes, secondes, hundredths);
+}
+
+function getText(days: number, hours: number, minutes: number, secondes: number, hundredths: number) {
+  const minutesText = appendZeros(minutes, hours || days);
+  const secondesText = appendZeros(secondes);
+  const hundredthsText = appendZeros(hundredths);
+
+  if (days) return `${days}:${hours}:${minutesText}:${secondesText}`;
+  if (hours) return `${hours}:${minutesText}:${secondesText}`;
+  if (minutes) return `${minutesText}:${secondesText}`;
+  return `${secondesText}:${hundredthsText}`;
+}
+
+function appendZeros(value: number, condition: any = true) {
+  return condition && value < 10 ? '0' + value : value;
 }

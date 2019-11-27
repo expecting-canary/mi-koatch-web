@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { WorkoutDispatch } from '../../redux/workout';
-import { SessionState } from '../../models/session';
+import { SessionState } from '../../models';
 
 export function SessionAction({ state }: { state: SessionState }) {
   const dispatch = useDispatch() as WorkoutDispatch;

@@ -1,11 +1,13 @@
 /// IMPORTS
 
-import produce, { Draft } from 'immer';
+import produce from 'immer';
 import { createStore, Reducer } from 'redux';
-import { Exercice, ExerciceUpdater } from '../models/exercice';
-import { Serie, SerieUpdater } from '../models/serie';
-import { Session } from '../models/session';
+import { Exercice, ExerciceUpdater } from '../models/exercice/wrapper';
+import { SerieUpdater } from '../models/models';
+import { Session } from '../models';
 import { initializeState, State } from '../models/state';
+import { Selected } from './selected';
+import { SessionRedux } from './session/wrapper';
 
 ///
 
@@ -45,6 +47,10 @@ type WorkoutActions = SessionStart | SessionStop | NextSerie | ExerciceUpdate | 
 
 const get = {
   exercice: {
+    selected(state: State) {
+      const id = state.selected.id;
+      return get.exercice.byId(state, id);
+    },
     ongoing(state: State) {
       return Session.get.exercice.ongoing(state.session);
     },
@@ -53,6 +59,10 @@ const get = {
     }
   },
   serie: {
+    selected(state: State) {
+      const id = state.selected.id;
+      return get.serie.byId(state, id);
+    },
     ongoing(state: State) {
       const exercice = Session.get.exercice.ongoing(state.session);
       return exercice && Exercice.get.serie.ongoing(exercice);
@@ -67,33 +77,12 @@ const get = {
 
 /// STORE
 
-const reducer = produce((state: Draft<State>, action: WorkoutActions) => {
-  switch (action.type) {
-    case 'SESSION_START':
-      return Session.action.start(state.session);
+const reducer = (state: State, action: WorkoutActions) => {
+  SessionRedux.reducer(state.session, action);
+  Selected.reducer(state.selected, action as any);
+};
 
-    case 'SESSION_STOP':
-      return Session.action.stop(state.session);
-
-    case 'NEXT_SERIE':
-      return Session.action.serie.next(state.session);
-
-    case 'EXERCICE_UPDATE':
-      const exercice = get.exercice.byId(state, action.payload.id);
-      return exercice && Exercice.action.update(exercice, action.payload);
-
-    case 'SERIE_REST': {
-      const serie = get.serie.ongoing(state);
-      return serie && Serie.action.rest(serie);
-    }
-    case 'SERIE_UPDATE': {
-      const serie = get.serie.byId(state, action.payload.id);
-      return serie && Serie.action.update(serie, action.payload);
-    }
-  }
-}) as Reducer<Readonly<State>, WorkoutActions>;
-
-const store = createStore(reducer, initializeState());
+const store = createStore(produce(reducer) as Reducer<Readonly<State>, WorkoutActions>, initializeState());
 
 type Dispatch = typeof store.dispatch;
 
