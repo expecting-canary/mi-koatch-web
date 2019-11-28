@@ -1,10 +1,10 @@
 import { IExercice } from '../models';
 
-export type State = 'TODO' | 'ONGOING' | 'DONE';
+export type SessionState = 'TODO' | 'ONGOING' | 'DONE';
 
 export interface ISession {
   id: string;
-  state: State;
+  state: SessionState;
   start: Date;
   stop: Date;
   exercices: IExercice[];

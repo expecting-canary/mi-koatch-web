@@ -1,8 +1,8 @@
-export type State = 'TODO' | 'ONGOING' | 'RESTING' | 'DONE';
+export type SerieState = 'TODO' | 'ONGOING' | 'RESTING' | 'DONE';
 
 export interface ISerie {
   id: string;
-  state: State;
+  state: SerieState;
   start: Date;
   rest: Date;
   stop: Date;
@@ -10,6 +10,6 @@ export interface ISerie {
   repetitions: number;
 }
 
-export type Editable = 'weight' | 'repetitions';
+export type SerieEditable = 'weight' | 'repetitions';
 
-export type Updater = Partial<Pick<ISerie, Editable>> & { id: string };
+export type SerieUpdater = Partial<Pick<ISerie, SerieEditable>> & { id: string };

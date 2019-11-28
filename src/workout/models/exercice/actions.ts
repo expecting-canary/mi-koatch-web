@@ -1,4 +1,4 @@
-import { IExercice, Updater } from './type';
+import { IExercice, ExerciceUpdater } from './type';
 import { Serie } from '../models';
 import { get } from './getters';
 
@@ -28,7 +28,7 @@ function exerciceAddSerie(exercice: IExercice) {
   exercice.result.push(todo);
 }
 
-function update(exercice: IExercice, updater: Updater) {
+function update(exercice: IExercice, updater: ExerciceUpdater) {
   Object.assign(exercice, updater);
 }
 

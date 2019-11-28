@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { IExercice, ExerciceEditable } from '../../models';
-import { WorkoutDispatch } from '../../redux/workout';
+import { WorkoutDispatch } from '../../redux/store';
 import { NumberPicker } from '../common/picker/number';
 
 export function ExerciceEdit({ exercice }: { exercice: IExercice }) {

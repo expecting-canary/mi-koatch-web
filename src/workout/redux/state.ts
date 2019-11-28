@@ -1,5 +1,4 @@
-import { ISelected } from '../redux/selected';
-import { ISession, Session } from './models';
+import { ISelected, ISession, Session } from '../models';
 
 export interface State {
   session: ISession;

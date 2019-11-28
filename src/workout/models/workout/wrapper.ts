@@ -1,10 +1,8 @@
 import { init } from './init';
-import { action } from './actions';
 import { get } from './getters';
 
-export const Session = {
+export const Workout = {
   init,
-  action,
   get
 };
 export * from './type';

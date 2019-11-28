@@ -1,8 +1,8 @@
+import { init } from './init';
 import { action } from './actions';
 import { get } from './getters';
-import { init } from './init';
 
-export const Exercice = {
+export const Selected = {
   init,
   action,
   get

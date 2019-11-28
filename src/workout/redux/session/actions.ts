@@ -1,29 +1,12 @@
 import { ExerciceUpdater, SerieUpdater } from '../../models';
+import { Action, PayloadAction } from '../../../common/action';
 
-interface SessionStart {
-  type: 'SESSION_START';
-}
+type SessionStart = Action<'SESSION_START'>;
+type SessionStop = Action<'SESSION_STOP'>;
+type ExerciceUpdate = PayloadAction<'EXERCICE_UPDATE', ExerciceUpdater>;
+type SerieUpdate = PayloadAction<'SERIE_UPDATE', SerieUpdater>;
+type SerieRest = Action<'SERIE_REST'>;
 
-interface SessionStop {
-  type: 'SESSION_STOP';
-}
+export type SessionActions = SessionStart | SessionStop | ExerciceUpdate | SerieUpdate | SerieRest;
 
-interface NextSerie {
-  type: 'NEXT_SERIE';
-}
-
-interface ExerciceUpdate {
-  type: 'EXERCICE_UPDATE';
-  payload: ExerciceUpdater;
-}
-
-interface SerieUpdate {
-  type: 'SERIE_UPDATE';
-  payload: SerieUpdater;
-}
-
-interface SerieRest {
-  type: 'SERIE_REST';
-}
-
-export type Actions = SessionStart | SessionStop | NextSerie | ExerciceUpdate | SerieUpdate | SerieRest;
+const test: SerieRest = {type: 'SERIE_REST'};

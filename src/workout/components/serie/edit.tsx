@@ -1,7 +1,7 @@
 import React from 'react';
 import { NumberPicker } from '../common/picker/number';
 import { useDispatch } from 'react-redux';
-import { WorkoutDispatch } from '../../redux/workout';
+import { WorkoutDispatch } from '../../redux/store';
 import { ISerie, SerieEditable } from '../../models';
 
 export function SerieEdit({ state }: { state: ISerie }) {

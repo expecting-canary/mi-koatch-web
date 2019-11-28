@@ -7,22 +7,22 @@ import { ExerciceItem } from '../workout/components/exercice/info';
 import { SerieItem } from '../workout/components/serie/info';
 import { Serie } from '../workout/components/serie/serie';
 import { Session } from '../workout/components/session/session';
-import { State } from '../workout/models/state';
-import { Workout } from '../workout/redux/workout';
+import { State } from '../workout/redux/state';
+import { WorkoutManager } from '../workout/redux/store';
 import './App.scss';
 
 const App: React.FC = () => {
-  const exercice = useSelector(Workout.get.exercice.ongoing);
-  const serie = useSelector(Workout.get.serie.ongoing);
+  const exercice = useSelector(WorkoutManager.get.exercice.ongoing);
+  const serie = useSelector(WorkoutManager.get.serie.ongoing);
 
   return (
     <div>
       <WorkoutTimer />
-      <MainDisplay />
       <ListGroup>
         <ExerciceItem {...{ exercice }} onClick={console.log} />
         <SerieItem {...{ serie }} />
       </ListGroup>
+      <MainDisplay />
     </div>
   );
 };
@@ -30,8 +30,8 @@ const App: React.FC = () => {
 function MainDisplay() {
   const state = useSelector((state: State) => state);
 
-  const exercice = Workout.get.exercice.ongoing(state);
-  const serie = Workout.get.serie.ongoing(state);
+  const exercice = WorkoutManager.get.exercice.ongoing(state);
+  const serie = WorkoutManager.get.serie.ongoing(state);
 
   if (serie) return <Serie serie={serie} />;
   if (exercice) return <Exercice exercice={exercice} />;
@@ -43,8 +43,8 @@ export default App;
 function WorkoutTimer() {
   const state = useSelector((state: State) => state);
   const session = state.session.state === 'ONGOING' && state.session;
-  const exercice = Workout.get.exercice.ongoing(state);
-  const serie = Workout.get.serie.ongoing(state);
+  const exercice = WorkoutManager.get.exercice.ongoing(state);
+  const serie = WorkoutManager.get.serie.ongoing(state);
 
   return (
     <div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { ExerciceList } from './list';
 import { SessionAction } from './actions';
 import { useSelector } from 'react-redux';
-import { State } from '../../models/state';
+import { State } from '../../redux/state';
 
 export function Session() {
   const state = useSelector((state: State) => state.session.state);

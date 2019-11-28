@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import App from './App/App';
-import { Workout } from './workout/redux/workout';
+import { WorkoutManager } from './workout/redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <Provider store={Workout.store}>
+  <Provider store={WorkoutManager.store}>
     <App />
   </Provider>,
   document.getElementById('root')

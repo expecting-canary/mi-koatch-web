@@ -1,20 +1,27 @@
-import { ISerie, Updater } from './type';
+import { ISerie, SerieUpdater } from './type';
 
-export function start(serie: ISerie) {
+function start(serie: ISerie) {
   serie.state = 'ONGOING';
   serie.start = new Date();
 }
 
-export function rest(serie: ISerie) {
+function rest(serie: ISerie) {
   serie.state = 'RESTING';
   serie.rest = new Date();
 }
 
-export function stop(serie: ISerie) {
+function stop(serie: ISerie) {
   serie.state = 'DONE';
   serie.stop = new Date();
 }
 
-export function update(serie: ISerie, updater: Updater) {
+function update(serie: ISerie, updater: SerieUpdater) {
   Object.assign(serie, updater);
 }
+
+export const action = {
+  start,
+  stop,
+  rest,
+  update
+};

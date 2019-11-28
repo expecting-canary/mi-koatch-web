@@ -1,6 +1,6 @@
 import { ISerie } from '../models';
 
-export type State = 'TODO' | 'ONGOING' | 'DONE';
+export type ExerciceState = 'TODO' | 'ONGOING' | 'DONE';
 
 export enum ExerciceType {
   None
@@ -8,7 +8,7 @@ export enum ExerciceType {
 
 export interface IExercice {
   id: string;
-  state: State;
+  state: ExerciceState;
   type: ExerciceType;
   name: string;
   start: Date;
@@ -20,6 +20,6 @@ export interface IExercice {
   result: ISerie[];
 }
 
-export type Editable = 'weight' | 'repetitions' | 'rest' | 'series';
+export type ExerciceEditable = 'weight' | 'repetitions' | 'rest' | 'series';
 
-export type Updater = Partial<Pick<IExercice, Editable>> & { id: string };
+export type ExerciceUpdater = Partial<Pick<IExercice, ExerciceEditable>> & { id: string };

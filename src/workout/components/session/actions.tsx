@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { WorkoutDispatch } from '../../redux/workout';
+import { WorkoutDispatch } from '../../redux/store';
 import { SessionState } from '../../models';
 
 export function SessionAction({ state }: { state: SessionState }) {
