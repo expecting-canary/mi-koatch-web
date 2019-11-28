@@ -4,36 +4,64 @@ import FlexView from 'react-flexview/lib';
 import { Icon } from '../../../common/icon/icon';
 import { IExercice } from '../../models';
 import { ExerciceTimer } from './timer';
+import { useDispatch } from 'react-redux';
+import { WorkoutDispatch } from 'src/workout/redux/store';
 
-function ExerciceInfo({ exercice }: { exercice: IExercice }) {
+function useSelect(id: string) {
+  const dispatch = useDispatch() as WorkoutDispatch;
+  return function() {
+    dispatch({ type: 'SELECT_EXERCICE', payload: id });
+  };
+}
+
+function ExerciceInfo(exercice: IExercice) {
+  const onClick = useSelect(exercice.id);
   return (
-    <FlexView wrap>
-      <FlexView grow>{exercice.name}</FlexView>
-      <FlexView hAlignContent="right">
-        <FlexView width={70} hAlignContent="right" vAlignContent="center">
-          <ExerciceTimer state={exercice} />
-          &nbsp;
-          <Icon icon={'clock'} far />
-        </FlexView>
-        <FlexView width={50} hAlignContent="right" vAlignContent="center">
-          {exercice.series}
-          &nbsp;
-          <Icon icon={'redo'} />
-        </FlexView>
-        <FlexView width={50} hAlignContent="right" vAlignContent="center">
-          {exercice.rest}
-          &nbsp;
-          <Icon icon={'hourglass'} far />
-        </FlexView>
+    <ListGroupItem onClick={onClick}>
+      <FlexView wrap>
+        <FlexView grow>{exercice.name}</FlexView>
+        {Details(exercice)}
       </FlexView>
-    </FlexView>
+    </ListGroupItem>
   );
 }
 
-export function ExerciceItem({ exercice, onClick }: { exercice?: IExercice; onClick?: () => void }) {
-  return exercice ? (
-    <ListGroupItem onClick={onClick}>
-      <ExerciceInfo exercice={exercice} />
-    </ListGroupItem>
-  ) : null;
+/// DETAILS
+
+const Details = (exercice: IExercice) => (
+  <FlexView hAlignContent="right">
+    {TimerDetail(exercice)}
+    {RestDetail(exercice)}
+    {SeriesDetail(exercice)}
+  </FlexView>
+);
+
+const TimerDetail = (exercice: IExercice) => (
+  <FlexView width={70} hAlignContent="right" vAlignContent="center">
+    <ExerciceTimer state={exercice} />
+    &nbsp;
+    <Icon icon={'clock'} far />
+  </FlexView>
+);
+
+const RestDetail = (exercice: IExercice) => (
+  <FlexView width={50} hAlignContent="right" vAlignContent="center">
+    {exercice.rest}
+    &nbsp;
+    <Icon icon={'hourglass'} far />
+  </FlexView>
+);
+
+const SeriesDetail = (exercice: IExercice) => (
+  <FlexView width={50} hAlignContent="right" vAlignContent="center">
+    {exercice.series}
+    &nbsp;
+    <Icon icon={'redo'} />
+  </FlexView>
+);
+
+///
+
+export function ExerciceItem({ exercice }: { exercice?: IExercice }) {
+  return exercice ? ExerciceInfo(exercice) : null;
 }

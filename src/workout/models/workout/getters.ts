@@ -2,6 +2,9 @@ import { Exercice, Session } from '../../models';
 import { IWorkout } from './type';
 
 export const get = {
+  session(state: IWorkout) {
+    return state.session;
+  },
   exercice: {
     selected(state: IWorkout) {
       const id = state.selected.id;

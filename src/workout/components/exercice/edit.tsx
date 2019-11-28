@@ -4,26 +4,34 @@ import { IExercice, ExerciceEditable } from '../../models';
 import { WorkoutDispatch } from '../../redux/store';
 import { NumberPicker } from '../common/picker/number';
 
+function useUpdate(exercice: IExercice, key: ExerciceEditable) {
+  const dispatch = useDispatch() as WorkoutDispatch;
+  return function onChange(value: number) {
+    dispatch({ type: 'EXERCICE_UPDATE', payload: { id: exercice.id, [key]: value } });
+  };
+}
+
 export function ExerciceEdit({ exercice }: { exercice: IExercice }) {
+  const serieChange = useUpdate(exercice, 'series');
+  const restChange = useUpdate(exercice, 'rest');
+  const weightChange = useUpdate(exercice, 'weight');
+  const repsChange = useUpdate(exercice, 'repetitions');
+  
   return (
     <div>
-      <ExerciceEditItem label={'Series'} exercice={exercice} key={'series'} />
-      <ExerciceEditItem label={'Repos'} exercice={exercice} key={'rest'} />
-      <ExerciceEditItem label={'Poids'} exercice={exercice} key={'weight'} />
-      <ExerciceEditItem label={'Répétitions'} exercice={exercice} key={'repetitions'} />
+      {ExerciceEditItem('Series', exercice.series, serieChange)}
+      {ExerciceEditItem('Repos', exercice.rest, restChange)}
+      {ExerciceEditItem('Poids', exercice.weight, weightChange)}
+      {ExerciceEditItem('Répétitions', exercice.repetitions, repsChange)}
     </div>
   );
 }
 
-function ExerciceEditItem({ label, exercice, key }: { label: string; exercice: IExercice; key: ExerciceEditable }) {
-  const dispatch = useDispatch() as WorkoutDispatch;
-  function onChange(value: number) {
-    dispatch({ type: 'EXERCICE_UPDATE', payload: { id: exercice.id, [key]: value } });
-  }
+function ExerciceEditItem(label: string, value: number, onChange: (value: number) => void) {
   return (
     <div>
       {label} :
-      <NumberPicker value={exercice[key]} onChange={onChange} />
+      <NumberPicker value={value} onChange={onChange} />
     </div>
   );
 }

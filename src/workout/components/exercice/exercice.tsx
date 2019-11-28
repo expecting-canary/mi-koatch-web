@@ -1,13 +1,13 @@
 import React from 'react';
 import { IExercice } from '../../models';
 import { ExerciceEdit } from './edit';
-import { ExerciceTimer } from './timer';
+import { SerieList } from './list';
 
 export function Exercice({ exercice }: { exercice: IExercice }) {
   return (
     <div>
       <ExerciceEdit exercice={exercice} />
-      <ExerciceTimer state={exercice} />
+      {SerieList(exercice)}
     </div>
   );
 }

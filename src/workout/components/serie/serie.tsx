@@ -1,16 +1,15 @@
 import React from 'react';
+import FlexView from 'react-flexview/lib';
+import { ISerie } from '../../models/models';
 import { SerieAction } from './actions';
 import { SerieEdit } from './edit';
-import { SerieTimer } from './timer';
-import { ISerie } from '../../models/models';
 
 export function Serie({ serie }: { serie: ISerie }) {
   const editable = serie.state !== 'ONGOING';
   return (
-    <div>
-      {editable && <SerieEdit state={serie} />}
+    <FlexView column>
       <SerieAction state={serie.state} />
-      <SerieTimer state={serie} />
-    </div>
+      <FlexView grow>{editable && <SerieEdit state={serie} />}</FlexView>
+    </FlexView>
   );
 }
