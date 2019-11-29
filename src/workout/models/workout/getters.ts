@@ -11,10 +11,10 @@ export const get = {
       return get.exercice.byId(state, id);
     },
     ongoing(state: IWorkout) {
-      return Session.get.exercice.ongoing(state.session);
+      return Session.selector.exercice.ongoing(state.session);
     },
     byId(state: IWorkout, id: string) {
-      return Session.get.exercice.byId(state.session, id);
+      return Session.selector.exercice.byId(state.session, id);
     }
   },
   serie: {
@@ -23,11 +23,11 @@ export const get = {
       return get.serie.byId(state, id);
     },
     ongoing(state: IWorkout) {
-      const exercice = Session.get.exercice.ongoing(state.session);
+      const exercice = Session.selector.exercice.ongoing(state.session);
       return exercice && Exercice.get.serie.ongoing(exercice);
     },
     byId(state: IWorkout, id: string) {
-      return Session.get.serie.byId(state.session, id);
+      return Session.selector.serie.byId(state.session, id);
     }
   }
 };

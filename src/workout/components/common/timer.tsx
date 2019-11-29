@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { useInterval } from '../../hooks/useInterval';
+import { useInterval } from '../../../common/useInterval';
 
 const SECONDE = 1000;
 const MINUTE = SECONDE * 60;

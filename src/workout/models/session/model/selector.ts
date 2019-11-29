@@ -1,7 +1,7 @@
 import { ISession } from './type';
-import { Exercice } from '../models';
+import { Exercice } from '../../models';
 
-export const get = {
+export const selector = {
   exercice: {
     ongoing(session: ISession) {
       return session.exercices.find(exercice => exercice.state === 'ONGOING');
@@ -15,14 +15,14 @@ export const get = {
   },
   serie: {
     ongoing(session: ISession) {
-      const exercice = get.exercice.ongoing(session);
+      const exercice = selector.exercice.ongoing(session);
       return exercice && Exercice.get.serie.ongoing(exercice);
     },
     all(session: ISession) {
       return session.exercices.map(exercice => exercice.result).reduce((array, series) => [...array, ...series], []);
     },
     byId(session: ISession, id: string) {
-      return get.serie.all(session).find(exercice => exercice.id === id);
+      return selector.serie.all(session).find(exercice => exercice.id === id);
     }
   }
 };

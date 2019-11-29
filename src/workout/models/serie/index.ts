@@ -1,10 +1,10 @@
-import { action } from './action';
+import { operation } from './operation';
 import { init } from './init';
 import { util } from './util';
 
 export const Serie = {
   init,
-  action,
+  operation,
   util
 };
 export * from './type';

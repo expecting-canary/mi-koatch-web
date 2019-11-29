@@ -1,4 +1,4 @@
-import { Workout } from 'src/workout/models/workout/wrapper';
+import { Workout } from 'src/workout/models/workout';
 
 export const handlers = {
   START: Workout.action.start,

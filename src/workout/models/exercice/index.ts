@@ -1,10 +1,10 @@
-import { action } from './actions';
+import { operation } from './operation';
 import { get } from './getters';
 import { init } from './init';
 
 export const Exercice = {
   init,
-  action,
+  operation,
   get
 };
 export * from './type';

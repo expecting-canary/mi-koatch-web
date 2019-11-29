@@ -8,7 +8,7 @@ export function Serie({ serie }: { serie: ISerie }) {
   const editable = serie.state !== 'ONGOING';
   return (
     <FlexView column>
-      <SerieAction state={serie.state} />
+      <SerieAction serie={serie} />
       <FlexView grow>{editable && <SerieEdit state={serie} />}</FlexView>
     </FlexView>
   );

@@ -1,4 +1,4 @@
-import { IExercice } from '../models';
+import { IExercice } from '../../models';
 
 export type SessionState = 'TODO' | 'ONGOING' | 'DONE';
 

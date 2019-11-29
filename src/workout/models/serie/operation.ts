@@ -19,7 +19,7 @@ function update(serie: ISerie, updater: SerieUpdater) {
   Object.assign(serie, updater);
 }
 
-export const action = {
+export const operation = {
   start,
   stop,
   rest,

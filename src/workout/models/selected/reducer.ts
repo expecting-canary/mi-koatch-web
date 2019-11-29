@@ -1,6 +1,6 @@
 import { SelectedActions } from './actions';
 import { handlers } from './handlers';
 import { reducerBuilder } from 'src/common/reducer.builder';
-import { ISelected } from 'src/workout/models';
+import { ISelected } from './model/type';
 
-export const selectedReducer = reducerBuilder<ISelected, SelectedActions>(handlers);
+export const reducer = reducerBuilder<ISelected, SelectedActions>(handlers);

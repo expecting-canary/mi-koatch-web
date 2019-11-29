@@ -17,14 +17,14 @@ function nextSerie(exercice: IExercice) {
   const serie = get.serie.ongoing(exercice);
   const done = exercice.result.length === exercice.series;
 
-  if (serie) Serie.action.stop(serie);
+  if (serie) Serie.operation.stop(serie);
   if (!done) exerciceAddSerie(exercice);
   else stop(exercice);
 }
 
 function exerciceAddSerie(exercice: IExercice) {
   const todo = Serie.init(exercice);
-  Serie.action.start(todo);
+  Serie.operation.start(todo);
   exercice.result.push(todo);
 }
 
@@ -32,7 +32,7 @@ function update(exercice: IExercice, updater: ExerciceUpdater) {
   Object.assign(exercice, updater);
 }
 
-export const action = {
+export const operation = {
   start,
   stop,
   update,

@@ -1,5 +1,5 @@
-import { generateId } from '../../../common/id';
-import { Exercice } from '../models';
+import { generateId } from '../../../../common/id';
+import { Exercice } from '../../models';
 import { ISession } from './type';
 
 export function init(): ISession {

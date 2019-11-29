@@ -2,7 +2,7 @@ import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { SessionItem } from 'src/workout/components/session/info';
-import { Workout } from 'src/workout/models/workout/wrapper';
+import { Workout } from 'src/workout/models/workout';
 import { Exercice } from '../workout/components/exercice/exercice';
 import { ExerciceItem } from '../workout/components/exercice/info';
 import { SerieItem } from '../workout/components/serie/info';
