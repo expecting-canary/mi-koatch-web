@@ -1,24 +1,23 @@
 import React from 'react';
-import FlexView from 'react-flexview';
-import { Icon } from '../../../common/icon/icon';
 import { ListGroupItem } from 'react-bootstrap';
-import { ISession } from 'src/workout/models';
+import FlexView from 'react-flexview';
+import { Icon } from 'src/common/icon/icon';
+import { ISession } from 'src/workout/types';
+import { UseWorkout } from 'src/workout/state';
 import { SessionTimer } from './timer';
-import { WorkoutDispatch } from 'src/workout/redux/store';
-import { useDispatch } from 'react-redux';
 
 function useSelect(id: string) {
-  const dispatch = useDispatch() as WorkoutDispatch;
-  return () => dispatch({ type: 'SELECT_SESSION', payload: id });
+  const dispatch = UseWorkout.dispatch.select.session();
+  return () => dispatch(id);
 }
 
-function SessionInfo(session: ISession) {
+function SessionInfo({ session }: { session: ISession }) {
   const onClick = useSelect(session.id);
   return (
     <ListGroupItem>
       <FlexView wrap onClick={onClick}>
         <FlexView grow>Session</FlexView>
-        {Details(session)}
+        <Details session={session}/>
       </FlexView>
     </ListGroupItem>
   );
@@ -26,14 +25,14 @@ function SessionInfo(session: ISession) {
 
 /// DETAILS
 
-const Details = (session: ISession) => (
+const Details = ({ session }: { session: ISession }) => (
   <FlexView hAlignContent="right">
-    {TimerDetail(session)}
+    <TimerDetail session={session} />
     {ExercicesDetail(session)}
   </FlexView>
 );
 
-const TimerDetail = (session: ISession) => (
+const TimerDetail = ({ session }: { session: ISession }) => (
   <FlexView width={70} hAlignContent="right" vAlignContent="center">
     <SessionTimer state={session} />
     &nbsp;
@@ -52,5 +51,5 @@ const ExercicesDetail = (session: ISession) => (
 ///
 
 export function SessionItem({ session }: { session?: ISession }) {
-  return session ? SessionInfo(session) : null;
+  return session ? <SessionInfo session={session}/> : null;
 }

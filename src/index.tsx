@@ -1,14 +1,15 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import App from './App/App';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
-import App from './App/App';
-import { workoutStore } from './workout/redux/store';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { UseWorkout } from './workout/state';
 
 ReactDOM.render(
-  <Provider store={workoutStore}>
+  // tslint:disable-next-line: jsx-wrap-multiline
+  <Provider store={UseWorkout.store}>
     <App />
   </Provider>,
   document.getElementById('root')

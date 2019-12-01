@@ -1,37 +1,53 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { IExercice, ExerciceEditable } from '../../models';
-import { WorkoutDispatch } from '../../redux/store';
-import { NumberPicker } from '../common/picker/number';
-
-function useUpdate(exercice: IExercice, key: ExerciceEditable) {
-  const dispatch = useDispatch() as WorkoutDispatch;
-  return function onChange(value: number) {
-    dispatch({ type: 'EXERCICE_UPDATE', payload: { id: exercice.id, [key]: value } });
-  };
-}
+import { NumberPicker } from 'src/common/picker/number';
+import { UseWorkout } from 'src/workout/state';
+import { ExerciceEditable, IExercice } from 'src/workout/types';
 
 export function ExerciceEdit({ exercice }: { exercice: IExercice }) {
-  const serieChange = useUpdate(exercice, 'series');
-  const restChange = useUpdate(exercice, 'rest');
-  const weightChange = useUpdate(exercice, 'weight');
-  const repsChange = useUpdate(exercice, 'repetitions');
-  
+  const active = exercice.state === 'TODO';
+  const serieActive = active || exercice.state === 'ONGOING';
+  const serieMin = exercice.result.length;
   return (
     <div>
-      {ExerciceEditItem('Series', exercice.series, serieChange)}
-      {ExerciceEditItem('Repos', exercice.rest, restChange)}
-      {ExerciceEditItem('Poids', exercice.weight, weightChange)}
-      {ExerciceEditItem('Répétitions', exercice.repetitions, repsChange)}
+      <ExerciceEditItem exercice={exercice} active={serieActive} prop={'series'} min={serieMin}>
+        Series
+      </ExerciceEditItem>
+      <ExerciceEditItem exercice={exercice} active={active} prop={'rest'} min={0} step={5}>
+        Repos
+      </ExerciceEditItem>
+      <ExerciceEditItem exercice={exercice} active={active} prop={'weight'} min={0}>
+        Poids
+      </ExerciceEditItem>
+      <ExerciceEditItem exercice={exercice} active={active} prop={'repetitions'} min={0}>
+        Répétitions
+      </ExerciceEditItem>
     </div>
   );
 }
 
-function ExerciceEditItem(label: string, value: number, onChange: (value: number) => void) {
+type EditProps = {
+  children: string;
+  exercice: IExercice;
+  prop: ExerciceEditable;
+  active: boolean;
+  min?: number;
+  step?: number;
+};
+
+function useUpdate(exercice: IExercice, key: ExerciceEditable) {
+  const dispatch = UseWorkout.dispatch.update.exercice();
+  return function onChange(value: number) {
+    dispatch({ id: exercice.id, [key]: value });
+  };
+}
+
+function ExerciceEditItem({ children, exercice, prop, active, min, step }: EditProps) {
+  const onChange = useUpdate(exercice, prop);
+  const value = exercice[prop];
   return (
     <div>
-      {label} :
-      <NumberPicker value={value} onChange={onChange} />
+      {children}
+      <NumberPicker {...{ value, onChange, min, step, disabled: !active }} />
     </div>
   );
 }

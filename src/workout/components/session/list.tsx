@@ -1,11 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { ExerciceItem } from '../exercice/info';
 import { ListGroup } from 'react-bootstrap';
-import { useWorkoutSelector } from 'src/workout/redux/store';
+import { UseWorkout } from 'src/workout/state';
+import { ExerciceItem } from '../exercice/info';
 
 export function ExerciceList() {
-  const state = useWorkoutSelector();
-  const exercices = state.session.exercices.map(exercice => <ExerciceItem exercice={exercice} key={exercice.id} />);
+  const session = UseWorkout.selector.session();
+  const exercices = session.exercices.map(exercice => <ExerciceItem exercice={exercice} key={exercice.id} />);
   return <ListGroup>{exercices}</ListGroup>;
 }

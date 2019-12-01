@@ -1,14 +1,9 @@
-import { selector } from './model/selector';
-import { init } from './model/init';
-import { operation } from './model/operation';
-import { reducer } from './reducer';
+import { create } from './create';
+import { operation } from './operation';
+import { get } from './get';
 
-export const Session = {
-  init,
-  operation,
-  selector,
-  reducer
+export const MSession = {
+  new: create,
+  do: operation,
+  get
 };
-export * from './actions';
-export * from './model/type';
-

@@ -2,26 +2,26 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import FlexView from 'react-flexview/lib';
 import { useInterval } from 'src/common/useInterval';
-import { ISerie } from 'src/workout/models';
-import { IExercice } from 'src/workout/models/models';
-import { Workout } from 'src/workout/models/workout';
-import { useWorkoutDispatch, useWorkoutSelector } from 'src/workout/redux/store';
-import { WorkoutHook } from 'src/workout/redux/hooks';
+import { UseWorkout } from 'src/workout/state';
+import { IExercice, ISerie } from 'src/workout/types';
 
 export function SerieAction({ serie }: { serie: ISerie }) {
-  const dispatch = useWorkoutDispatch();
   switch (serie.state) {
     case 'ONGOING':
-      const rest = () => dispatch({ type: 'SERIE_REST' });
-      return <Button onClick={rest}>Fin Série - Début Repos</Button>;
+      return <RestButton />;
     case 'RESTING':
       return <RestWrapper serie={serie} />;
   }
   return null;
 }
 
+function RestButton() {
+  const useRest = UseWorkout.dispatch.rest();
+  return <Button onClick={useRest}>Fin Série - Début Repos</Button>;
+}
+
 function RestWrapper({ serie }: { serie: ISerie }) {
-  const stop = WorkoutHook.rest();
+  const stop = useNext();
   return (
     <FlexView column>
       <Button onClick={stop}>Fin Repos</Button>
@@ -30,18 +30,18 @@ function RestWrapper({ serie }: { serie: ISerie }) {
   );
 }
 
-function getRest(serie: ISerie) {
-  return Math.floor((Date.now() - serie.rest.getTime()) / 1000);
+function getSecondes(date: Date) {
+  return Math.floor((Date.now() - date.getTime()) / 1000);
 }
 
 function useRestTimer(serie: ISerie) {
-  const [rest, setRest] = useState(getRest(serie));
-  useInterval(() => setRest(getRest(serie)), 20);
+  const [rest, setRest] = useState(getSecondes(serie.rest));
+  useInterval(() => setRest(getSecondes(serie.rest)), 20);
   return rest;
 }
 
 function RestActions({ serie }: { serie: ISerie }) {
-  const exercice = useWorkoutSelector(Workout.get.exercice.ongoing) as IExercice;
+  const exercice = UseWorkout.selector.exercice.ongoing() as IExercice;
   const rest = useRestTimer(serie);
   return (
     <FlexView>
@@ -52,18 +52,23 @@ function RestActions({ serie }: { serie: ISerie }) {
   );
 }
 
-function useNext(active: boolean) {
-  const dispatch = useWorkoutDispatch();
-  if (active) return () => dispatch({ type: 'NEXT' });
+function useNext(active = true, delay = 0) {
+  const next = UseWorkout.dispatch.next();
+  if (active) return () => next(delay);
 }
 
 function RestActionButton(rest: number, defaultRest: number, delta: number) {
-  const active = defaultRest - rest < delta;
-  const next = useNext(active);
+  const trigger = UseWorkout.selector.delay();
+  const selected = trigger.delay === delta;
+  const active = defaultRest - rest <= delta;
+  const next = useNext(active, delta);
+
+  const time = selected ? delta - getSecondes(trigger.start) : delta;
+
   return (
     <FlexView grow column>
-      <Button onClick={next} variant={'outline-secondary'} disabled={active}>
-        {delta}s
+      <Button onClick={next} variant={selected ? 'success' : 'secondary'} disabled={!active}>
+        {time}s
       </Button>
     </FlexView>
   );

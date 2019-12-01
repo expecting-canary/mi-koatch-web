@@ -1,15 +1,27 @@
-import React from 'react';
-import { Timer } from '../common/timer';
-import { ISession } from 'src/workout/models/models';
+import React, { useEffect } from 'react';
+import { useTimerHM_MS } from 'src/common/timer';
+import { ISession } from 'src/workout/types';
+import { TimerControls } from 'react-compound-timer';
 
-export function SessionTimer({ state: { state, start, stop } }: { state: ISession }) {
+export function SessionTimer({ state }: { state: ISession }) {
+  const [value, controls] = useTimerHM_MS(0, false);
+  useEffect(() => controlTimer(state, controls), [state, controls]);
+  return <span>{value}</span>;
+}
+
+function controlTimer({ state, start, stop }: ISession, controls: TimerControls) {
   switch (state) {
     case 'TODO':
-      return <Timer running={false} />;
+      controls.stop();
+      controls.setTime(0);
+      break;
     case 'ONGOING':
-      return <Timer start={start} />;
+      controls.start();
+      controls.setTime(Date.now() - start.getTime());
+      break;
     case 'DONE':
-      return <Timer start={new Date(stop.getTime() - start.getTime())} running={false} />;
+      controls.stop();
+      controls.setTime(stop.getTime() - start.getTime());
+      break;
   }
-  return null;
 }

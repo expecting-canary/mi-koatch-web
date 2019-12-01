@@ -1,11 +1,9 @@
-import { selector } from './model/selector';
-import { reducer } from './reducer';
-import { operation } from './model/operation';
+import { create } from './create';
+import { operation } from './operation';
+import { get } from './get';
 
-export const Selected = {
-  operation,
-  selector,
-  reducer
+export const MSelected = {
+  new: create,
+  do: operation,
+  get
 };
-export * from './model/type';
-export * from './actions';

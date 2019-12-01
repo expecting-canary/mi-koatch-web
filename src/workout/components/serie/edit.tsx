@@ -1,15 +1,12 @@
 import React from 'react';
-import { NumberPicker } from '../common/picker/number';
-import { useDispatch } from 'react-redux';
-import { WorkoutDispatch } from '../../redux/store';
-import { ISerie, SerieEditable } from '../../models';
 import FlexView from 'react-flexview/lib';
+import { NumberPicker } from 'src/common/picker/number';
+import { UseWorkout } from 'src/workout/state';
+import { ISerie, SerieEditable } from 'src/workout/types';
 
 function useUpdate(serie: ISerie, key: SerieEditable) {
-  const dispatch = useDispatch() as WorkoutDispatch;
-  return function onChange(value: number) {
-    dispatch({ type: 'SERIE_UPDATE', payload: { id: serie.id, [key]: value } });
-  };
+  const updateSerie = UseWorkout.dispatch.update.serie();
+  return (value: number) => updateSerie({ id: serie.id, [key]: value });
 }
 
 export function SerieEdit({ state }: { state: ISerie }) {

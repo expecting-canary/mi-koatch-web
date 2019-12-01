@@ -1,17 +1,15 @@
 import React from 'react';
-import FlexView from 'react-flexview';
-import { Icon } from '../../../common/icon/icon';
-import { ISerie, Serie } from 'src/workout/models';
-import { SerieTimer } from './timer';
 import { ListGroupItem } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { WorkoutDispatch } from 'src/workout/redux/store';
+import FlexView from 'react-flexview';
+import { Icon } from 'src/common/icon/icon';
+import { MSerie } from 'src/workout/models';
+import { UseWorkout } from 'src/workout/state';
+import { ISerie } from 'src/workout/types';
+import { SerieTimer } from './timer';
 
 function useSelect(id: string) {
-  const dispatch = useDispatch() as WorkoutDispatch;
-  return function() {
-    dispatch({ type: 'SELECT_SERIE', payload: id });
-  };
+  const selectSerie = UseWorkout.dispatch.select.serie();
+  return () => selectSerie(id);
 }
 
 function SerieInfo({ serie, index }: { serie: ISerie; index: number }) {
@@ -20,7 +18,7 @@ function SerieInfo({ serie, index }: { serie: ISerie; index: number }) {
     <ListGroupItem onClick={onClick}>
       <FlexView wrap>
         <FlexView grow>Serie {index + 1}</FlexView>
-        {Details(serie)}
+        <Details serie={serie} />
       </FlexView>
     </ListGroupItem>
   );
@@ -28,15 +26,15 @@ function SerieInfo({ serie, index }: { serie: ISerie; index: number }) {
 
 /// DETAILS
 
-const Details = (serie: ISerie) => (
+const Details = ({ serie }: { serie: ISerie }) => (
   <FlexView hAlignContent="right">
-    {TimerDetail(serie)}
+    <TimerDetail serie={serie} />
     {WeightDetail(serie)}
     {RepetitionsDetail(serie)}
   </FlexView>
 );
 
-const TimerDetail = (serie: ISerie) => (
+const TimerDetail = ({ serie }: { serie: ISerie }) => (
   <FlexView width={70} hAlignContent="right" vAlignContent="center">
     <SerieTimer state={serie} />
     &nbsp;
@@ -45,7 +43,7 @@ const TimerDetail = (serie: ISerie) => (
 );
 
 const TimerIcon = (serie: ISerie) =>
-  Serie.util.isState(serie, 'RESTING') ? <Icon icon={'hourglass'} far /> : <Icon icon={'clock'} far />;
+  MSerie.util.isState(serie, 'RESTING') ? <Icon icon={'hourglass'} far /> : <Icon icon={'clock'} far />;
 
 const WeightDetail = (serie: ISerie) => (
   <FlexView width={50} hAlignContent="right" vAlignContent="center">

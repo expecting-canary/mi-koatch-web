@@ -1,6 +1,6 @@
-import { IExercice, ExerciceUpdater } from './type';
-import { Serie } from '../models';
-import { get } from './getters';
+import { IExercice, ExerciceUpdater } from 'src/workout/types/exercice';
+import { get } from './getter';
+import { MSerie } from 'src/workout/models';
 
 function start(exercice: IExercice) {
   exercice.state = 'ONGOING';
@@ -17,14 +17,14 @@ function nextSerie(exercice: IExercice) {
   const serie = get.serie.ongoing(exercice);
   const done = exercice.result.length === exercice.series;
 
-  if (serie) Serie.operation.stop(serie);
+  if (serie) MSerie.do.stop(serie);
   if (!done) exerciceAddSerie(exercice);
   else stop(exercice);
 }
 
 function exerciceAddSerie(exercice: IExercice) {
-  const todo = Serie.init(exercice);
-  Serie.operation.start(todo);
+  const todo = MSerie.new(exercice);
+  MSerie.do.start(todo);
   exercice.result.push(todo);
 }
 

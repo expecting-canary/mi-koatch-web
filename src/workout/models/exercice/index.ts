@@ -1,10 +1,9 @@
+import { create } from './create';
 import { operation } from './operation';
-import { get } from './getters';
-import { init } from './init';
+import { get } from './getter';
 
-export const Exercice = {
-  init,
-  operation,
+export const MExercice = {
+  new: create,
+  do: operation,
   get
 };
-export * from './type';

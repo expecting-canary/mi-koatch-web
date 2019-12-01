@@ -1,17 +1,31 @@
-import React from 'react';
-import { Timer } from '../common/timer';
-import { ISerie } from '../../models';
+import React, { useEffect } from 'react';
+import { useTimerMS } from 'src/common/timer';
+import { ISerie } from 'src/workout/types';
+import { TimerControls } from 'react-compound-timer';
 
-export function SerieTimer({ state: { state, start, rest, stop } }: { state: ISerie }) {
+export function SerieTimer({ state }: { state: ISerie }) {
+  const [value, controls] = useTimerMS(0, false);
+  useEffect(() => controlTimer(state, controls), [state, controls]);
+  return <span>{value}</span>;
+}
+
+function controlTimer({ state, start, rest, stop }: ISerie, controls: TimerControls) {
   switch (state) {
     case 'TODO':
-      return <Timer running={false} />;
+      controls.stop();
+      controls.setTime(0);
+      break;
     case 'ONGOING':
-      return <Timer start={start} />;
+      controls.start();
+      controls.setTime(Date.now() - start.getTime());
+      break;
     case 'RESTING':
-      return <Timer start={rest} />;
+      controls.start();
+      controls.setTime(Date.now() - rest.getTime());
+      break;
     case 'DONE':
-      return <Timer start={new Date(stop.getTime() - start.getTime())} running={false} />;
+      controls.stop();
+      controls.setTime(stop.getTime() - start.getTime());
+      break;
   }
-  return null;
 }

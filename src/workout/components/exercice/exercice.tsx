@@ -1,5 +1,5 @@
 import React from 'react';
-import { IExercice } from '../../models';
+import { IExercice } from 'src/workout/types';
 import { ExerciceEdit } from './edit';
 import { SerieList } from './list';
 

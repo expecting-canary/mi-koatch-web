@@ -1,4 +1,4 @@
-import { ISerie, SerieState } from './type';
+import { ISerie, SerieState } from 'src/workout/types';
 
 function isStateBuilder(...states: SerieState[]) {
   return (serie: ISerie) => states.includes(serie.state);

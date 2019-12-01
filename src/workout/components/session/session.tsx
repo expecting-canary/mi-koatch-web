@@ -1,15 +1,14 @@
 import React from 'react';
-import { ExerciceList } from './list';
-import { SessionAction } from './actions';
-import { useSelector } from 'react-redux';
-import { State } from '../../redux/state';
 import FlexView from 'react-flexview/lib';
+import { UseWorkout } from 'src/workout/state';
+import { SessionAction } from './actions';
+import { ExerciceList } from './list';
 
 export function Session() {
-  const state = useSelector((state: State) => state.session.state);
+  const session = UseWorkout.selector.session();
   return (
     <FlexView column>
-      <SessionAction state={state} />
+      <SessionAction state={session.state} />
       <ExerciceList />
     </FlexView>
   );

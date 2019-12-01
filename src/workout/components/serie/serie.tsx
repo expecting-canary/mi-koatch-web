@@ -1,6 +1,6 @@
 import React from 'react';
 import FlexView from 'react-flexview/lib';
-import { ISerie } from '../../models/models';
+import { ISerie } from 'src/workout/types';
 import { SerieAction } from './actions';
 import { SerieEdit } from './edit';
 

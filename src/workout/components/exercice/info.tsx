@@ -1,17 +1,14 @@
 import React from 'react';
 import { ListGroupItem } from 'react-bootstrap';
 import FlexView from 'react-flexview/lib';
-import { Icon } from '../../../common/icon/icon';
-import { IExercice } from '../../models';
+import { Icon } from 'src/common/icon/icon';
+import { UseWorkout } from 'src/workout/state';
+import { IExercice } from 'src/workout/types';
 import { ExerciceTimer } from './timer';
-import { useDispatch } from 'react-redux';
-import { WorkoutDispatch } from 'src/workout/redux/store';
 
 function useSelect(id: string) {
-  const dispatch = useDispatch() as WorkoutDispatch;
-  return function() {
-    dispatch({ type: 'SELECT_EXERCICE', payload: id });
-  };
+  const select = UseWorkout.dispatch.select.exercice();
+  return () => select(id);
 }
 
 function ExerciceInfo(exercice: IExercice) {

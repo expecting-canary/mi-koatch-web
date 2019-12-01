@@ -1,14 +1,13 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { WorkoutDispatch } from '../../redux/store';
-import { SessionState } from '../../models';
 import { Button } from 'react-bootstrap';
+import { UseWorkout } from 'src/workout/state';
+import { SessionState } from 'src/workout/types';
 
 export function SessionAction({ state }: { state: SessionState }) {
-  const dispatch = useDispatch() as WorkoutDispatch;
+  const start = UseWorkout.dispatch.start();
   switch (state) {
     case 'TODO':
-      const begin = () => dispatch({ type: 'START' });
+      const begin = () => start();
       return <Button onClick={begin}>Commencer Session</Button>;
     case 'ONGOING': /*
       const stop = () => dispatch({ type: 'SESSION_STOP' });
