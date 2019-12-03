@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { useTimerMS } from 'src/common/timer';
 import { ISerie } from 'src/workout/types';
 import { TimerControls } from 'react-compound-timer';
+import { useSerieContext } from './context';
 
-export function SerieTimer({ state }: { state: ISerie }) {
+export function SerieTimer() {
+  const serie = useSerieContext();
   const [value, controls] = useTimerMS(0, false);
-  useEffect(() => controlTimer(state, controls), [state, controls]);
+  useEffect(() => controlTimer(serie, controls), [serie, controls]);
   return <span>{value}</span>;
 }
 

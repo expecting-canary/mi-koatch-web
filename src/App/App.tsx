@@ -19,7 +19,7 @@ const App: React.FC = () => {
       <ListGroup>
         <SessionItem {...{ session }} />
         <ExerciceItem {...{ exercice }} />
-        <SerieItem {...{ serie }} />
+        <SerieItem {...{ serie, exercice }} />
       </ListGroup>
       <div className={'p-2'}>
         <MainDisplay />

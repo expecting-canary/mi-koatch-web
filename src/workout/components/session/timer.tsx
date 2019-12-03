@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { useTimerHM_MS } from 'src/common/timer';
 import { ISession } from 'src/workout/types';
 import { TimerControls } from 'react-compound-timer';
+import { useSessionContext } from './context';
 
-export function SessionTimer({ state }: { state: ISession }) {
+export function SessionTimer() {
+  const session = useSessionContext();
   const [value, controls] = useTimerHM_MS(0, false);
-  useEffect(() => controlTimer(state, controls), [state, controls]);
+  useEffect(() => controlTimer(session, controls), [session, controls]);
   return <span>{value}</span>;
 }
 

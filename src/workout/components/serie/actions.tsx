@@ -3,14 +3,16 @@ import { Button } from 'react-bootstrap';
 import FlexView from 'react-flexview/lib';
 import { useInterval } from 'src/common/useInterval';
 import { UseWorkout } from 'src/workout/state';
-import { IExercice, ISerie } from 'src/workout/types';
+import { IExercice } from 'src/workout/types';
+import { useSerieContext } from './context';
 
-export function SerieAction({ serie }: { serie: ISerie }) {
+export function SerieAction() {
+  const serie = useSerieContext();
   switch (serie.state) {
     case 'ONGOING':
       return <RestButton />;
     case 'RESTING':
-      return <RestWrapper serie={serie} />;
+      return <RestWrapper />;
   }
   return null;
 }
@@ -20,12 +22,12 @@ function RestButton() {
   return <Button onClick={useRest}>Fin Série - Début Repos</Button>;
 }
 
-function RestWrapper({ serie }: { serie: ISerie }) {
+function RestWrapper() {
   const stop = useNext();
   return (
     <FlexView column>
       <Button onClick={stop}>Fin Repos</Button>
-      <RestActions serie={serie} />
+      <RestActions />
     </FlexView>
   );
 }
@@ -34,15 +36,16 @@ function getSecondes(date: Date) {
   return Math.floor((Date.now() - date.getTime()) / 1000);
 }
 
-function useRestTimer(serie: ISerie) {
+function useRestTimer() {
+  const serie = useSerieContext();
   const [rest, setRest] = useState(getSecondes(serie.rest));
   useInterval(() => setRest(getSecondes(serie.rest)), 20);
   return rest;
 }
 
-function RestActions({ serie }: { serie: ISerie }) {
+function RestActions() {
   const exercice = UseWorkout.selector.exercice.ongoing() as IExercice;
-  const rest = useRestTimer(serie);
+  const rest = useRestTimer();
   return (
     <FlexView>
       {RestActionButton(rest, exercice.rest, 15)}

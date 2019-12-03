@@ -2,12 +2,15 @@ import React from 'react';
 import { IExercice } from 'src/workout/types';
 import { ExerciceEdit } from './edit';
 import { SerieList } from './list';
+import { ExerciceContext } from './context';
 
 export function Exercice({ exercice }: { exercice: IExercice }) {
   return (
     <div>
-      <ExerciceEdit exercice={exercice} />
-      {SerieList(exercice)}
+      <ExerciceContext.Provider value={exercice}>
+        <ExerciceEdit />
+        <SerieList />
+      </ExerciceContext.Provider>
     </div>
   );
 }

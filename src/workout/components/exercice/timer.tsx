@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { TimerControls } from 'react-compound-timer/build';
 import { useTimerMS } from 'src/common/timer';
 import { IExercice } from 'src/workout/types';
+import { useExerciceContext } from './context';
 
-export function ExerciceTimer({ state }: { state: IExercice }) {
+export function ExerciceTimer() {
+  const exercice = useExerciceContext();
   const [value, controls] = useTimerMS(0, false);
-  useEffect(() => controlTimer(state, controls), [state, controls]);
+  useEffect(() => controlTimer(exercice, controls), [exercice, controls]);
   return <span>{value}</span>;
 }
 

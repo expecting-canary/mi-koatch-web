@@ -4,21 +4,26 @@ import FlexView from 'react-flexview';
 import { Icon } from 'src/common/icon/icon';
 import { MSerie } from 'src/workout/models';
 import { UseWorkout } from 'src/workout/state';
-import { ISerie } from 'src/workout/types';
+import { ISerie, IExercice } from 'src/workout/types';
 import { SerieTimer } from './timer';
+import { SerieContext, useSerieContext } from './context';
+import { ExerciceContext, useExerciceContext } from '../exercice/context';
 
 function useSelect(id: string) {
   const selectSerie = UseWorkout.dispatch.select.serie();
   return () => selectSerie(id);
 }
 
-function SerieInfo({ serie, index }: { serie: ISerie; index: number }) {
+function SerieInfo() {
+  const exercice = useExerciceContext();
+  const serie = useSerieContext();
+  const index = exercice.result.findIndex(result => result.id === serie.id);
   const onClick = useSelect(serie.id);
   return (
     <ListGroupItem onClick={onClick}>
       <FlexView wrap>
         <FlexView grow>Serie {index + 1}</FlexView>
-        <Details serie={serie} />
+        <Details />
       </FlexView>
     </ListGroupItem>
   );
@@ -26,43 +31,57 @@ function SerieInfo({ serie, index }: { serie: ISerie; index: number }) {
 
 /// DETAILS
 
-const Details = ({ serie }: { serie: ISerie }) => (
+const Details = () => (
   <FlexView hAlignContent="right">
-    <TimerDetail serie={serie} />
-    {WeightDetail(serie)}
-    {RepetitionsDetail(serie)}
+    <TimerDetail />
+    <WeightDetail />
+    <RepetitionsDetail />
   </FlexView>
 );
 
-const TimerDetail = ({ serie }: { serie: ISerie }) => (
-  <FlexView width={70} hAlignContent="right" vAlignContent="center">
-    <SerieTimer state={serie} />
-    &nbsp;
-    {TimerIcon(serie)}
-  </FlexView>
-);
+function TimerDetail() {
+  return (
+    <FlexView width={70} hAlignContent="right" vAlignContent="center">
+      <SerieTimer />
+      &nbsp;
+      <TimerIcon />
+    </FlexView>
+  );
+}
 
-const TimerIcon = (serie: ISerie) =>
-  MSerie.util.isState(serie, 'RESTING') ? <Icon icon={'hourglass'} far /> : <Icon icon={'clock'} far />;
-
-const WeightDetail = (serie: ISerie) => (
-  <FlexView width={50} hAlignContent="right" vAlignContent="center">
-    {serie.weight}
-    &nbsp;
-    <Icon icon={'dumbbell'} />
-  </FlexView>
-);
-
-const RepetitionsDetail = (serie: ISerie) => (
-  <FlexView width={50} hAlignContent="right" vAlignContent="center">
-    {serie.repetitions}
-    &nbsp;
-    <Icon icon={'redo'} />
-  </FlexView>
-);
+function TimerIcon() {
+  const serie = useSerieContext();
+  return MSerie.util.isState(serie, 'RESTING') ? <Icon icon={'hourglass'} far /> : <Icon icon={'clock'} far />;
+}
+function WeightDetail() {
+  const serie = useSerieContext();
+  return (
+    <FlexView width={50} hAlignContent="right" vAlignContent="center">
+      {serie.weight}
+      &nbsp;
+      <Icon icon={'dumbbell'} />
+    </FlexView>
+  );
+}
+function RepetitionsDetail() {
+  const serie = useSerieContext();
+  return (
+    <FlexView width={50} hAlignContent="right" vAlignContent="center">
+      {serie.repetitions}
+      &nbsp;
+      <Icon icon={'redo'} />
+    </FlexView>
+  );
+}
 
 ///
 
-export function SerieItem({ serie, index = 1 }: { serie?: ISerie; index?: number }) {
-  return serie ? <SerieInfo serie={serie} index={index} /> : null;
+export function SerieItem({ serie, exercice }: { serie?: ISerie; exercice?: IExercice }) {
+  return serie && exercice ? (
+    <ExerciceContext.Provider value={exercice}>
+      <SerieContext.Provider value={serie}>
+        <SerieInfo />
+      </SerieContext.Provider>
+    </ExerciceContext.Provider>
+  ) : null;
 }
