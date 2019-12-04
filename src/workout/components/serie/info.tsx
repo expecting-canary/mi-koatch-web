@@ -8,6 +8,7 @@ import { ISerie, IExercice } from 'src/workout/types';
 import { SerieTimer } from './timer';
 import { SerieContext, useSerieContext } from './context';
 import { ExerciceContext, useExerciceContext } from '../exercice/context';
+import { useLangage } from 'src/common/langage/context';
 
 function useSelect(id: string) {
   const selectSerie = UseWorkout.dispatch.select.serie();
@@ -19,10 +20,13 @@ function SerieInfo() {
   const serie = useSerieContext();
   const index = exercice.result.findIndex(result => result.id === serie.id);
   const onClick = useSelect(serie.id);
+  const langage = useLangage();
   return (
     <ListGroupItem onClick={onClick}>
       <FlexView wrap>
-        <FlexView grow>Serie {index + 1}</FlexView>
+        <FlexView grow>
+          {langage.serie.label} {index + 1}
+        </FlexView>
         <Details />
       </FlexView>
     </ListGroupItem>

@@ -1,17 +1,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import App from './App/App';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
-import { UseWorkout } from './workout/state';
+import { LangageContext } from './common/langage/context';
+import { fr } from './common/langage/fr';
 
 ReactDOM.render(
   // tslint:disable-next-line: jsx-wrap-multiline
-  <Provider store={UseWorkout.store}>
+  <LangageContext.Provider value={fr}>
     <App />
-  </Provider>,
+  </LangageContext.Provider>,
   document.getElementById('root')
 );
 
