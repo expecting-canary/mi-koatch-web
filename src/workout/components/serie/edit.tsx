@@ -1,6 +1,6 @@
 import React from 'react';
 import FlexView from 'react-flexview/lib';
-import { NumberPicker } from 'src/common/picker/number';
+import { NumberPicker } from 'src/common/picker/number/number';
 import { UseWorkout } from 'src/workout/state';
 import { ISerie, SerieEditable } from 'src/workout/types';
 import { useSerieContext } from './context';
@@ -23,11 +23,11 @@ export function SerieEdit() {
   );
 }
 
-function SerieEditItem(label: string, value: number, onChange: (value: number) => void) {
+function SerieEditItem(label: string, value: number, setValue: (value: number) => void) {
   return (
     <FlexView column grow>
       {label} :
-      <NumberPicker value={value} onChange={onChange} />
+      <NumberPicker value={value} setValue={setValue} />
     </FlexView>
   );
 }

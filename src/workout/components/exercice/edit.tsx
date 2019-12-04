@@ -1,7 +1,7 @@
 import React from 'react';
-import { NumberPicker } from 'src/common/picker/number';
+import { NumberPicker } from 'src/common/picker/number/number';
 import { UseWorkout } from 'src/workout/state';
-import { ExerciceEditable, IExercice } from 'src/workout/types';
+import { ExerciceEditable } from 'src/workout/types';
 import { useExerciceContext } from './context';
 
 export function ExerciceEdit() {
@@ -35,21 +35,20 @@ type EditProps = {
   step?: number;
 };
 
-function useUpdate(exercice: IExercice, key: ExerciceEditable) {
+function useUpdate(key: ExerciceEditable) {
+  const exercice = useExerciceContext();
   const dispatch = UseWorkout.dispatch.update.exercice();
-  return function onChange(value: number) {
-    dispatch({ id: exercice.id, [key]: value });
-  };
+  const setValue = (value: number) => dispatch({ id: exercice.id, [key]: value });
+  const value = exercice[key];
+  return { value, setValue };
 }
 
 function ExerciceEditItem({ children, prop, active, min, step }: EditProps) {
-  const exercice = useExerciceContext();
-  const onChange = useUpdate(exercice, prop);
-  const value = exercice[prop];
+  const { value, setValue } = useUpdate(prop);
   return (
     <div>
       {children}
-      <NumberPicker {...{ value, onChange, min, step, disabled: !active }} />
+      <NumberPicker {...{ value, setValue, min, step, disabled: !active }} />
     </div>
   );
 }
