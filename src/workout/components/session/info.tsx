@@ -3,21 +3,14 @@ import { ListGroupItem } from 'react-bootstrap';
 import FlexView from 'react-flexview';
 import { Icon } from 'src/common/icon/icon';
 import { ISession } from 'src/workout/types';
-import { UseWorkout } from 'src/workout/state';
+import { SessionContextProvider, useSessionContext } from './context';
 import { SessionTimer } from './timer';
-import { useSessionContext, SessionContext } from './context';
-
-function useSelect(id: string) {
-  const dispatch = UseWorkout.dispatch.select.session();
-  return () => dispatch(id);
-}
 
 function SessionInfo() {
-  const session = useSessionContext();
-  const onClick = useSelect(session.id);
+  const {  select } = useSessionContext();
   return (
     <ListGroupItem>
-      <FlexView wrap onClick={onClick}>
+      <FlexView wrap onClick={select}>
         <FlexView grow>Session</FlexView>
         <Details />
       </FlexView>
@@ -47,7 +40,7 @@ function TimerDetail() {
 }
 
 function ExercicesDetail() {
-  const session = useSessionContext();
+  const { session } = useSessionContext();
   return (
     <FlexView width={50} hAlignContent="right" vAlignContent="center">
       {session.exercices.length}
@@ -61,8 +54,8 @@ function ExercicesDetail() {
 
 export function SessionItem({ session }: { session?: ISession }) {
   return session ? (
-    <SessionContext.Provider value={session}>
+    <SessionContextProvider session={session}>
       <SessionInfo />
-    </SessionContext.Provider>
+    </SessionContextProvider>
   ) : null;
 }

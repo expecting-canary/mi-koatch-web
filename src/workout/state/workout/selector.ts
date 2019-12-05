@@ -19,6 +19,10 @@ function useSerieSelected() {
   return useSelector(MWorkout.get.serie.selected);
 }
 
+function usePath() {
+  return useSelector(MWorkout.get.path);
+}
+
 function useDelay() {
   return useSelector(MWorkout.get.delay);
 }
@@ -33,5 +37,6 @@ export const selector = {
     ongoing: useSerieOngoing,
     selected: useSerieSelected
   },
+  path: usePath,
   delay: useDelay
 };

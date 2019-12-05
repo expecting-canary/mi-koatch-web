@@ -1,5 +1,5 @@
 import { ISession } from 'src/workout/types';
-import { MExercice } from 'src/workout/models'
+import { MExercice } from 'src/workout/models';
 
 export const get = {
   exercice: {
@@ -11,6 +11,9 @@ export const get = {
     },
     byId(session: ISession, id: string) {
       return session.exercices.find(exercice => exercice.id === id);
+    },
+    withSerieId(session: ISession, id: string) {
+      return session.exercices.find(exercice => exercice.result.find(result => result.id === id));
     }
   },
   serie: {

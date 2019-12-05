@@ -1,5 +1,5 @@
 import { MExercice, MSession } from 'src/workout/models';
-import { IWorkout } from 'src/workout/types';
+import { IWorkout, ISession, IExercice, ISerie } from 'src/workout/types';
 
 export const get = {
   session(state: IWorkout) {
@@ -8,7 +8,7 @@ export const get = {
   exercice: {
     selected(state: IWorkout) {
       const id = state.selected.id;
-      return get.exercice.byId(state, id);
+      return get.exercice.byId(state, id) || MSession.get.exercice.withSerieId(state.session, id);
     },
     ongoing(state: IWorkout) {
       return MSession.get.exercice.ongoing(state.session);
@@ -29,6 +29,9 @@ export const get = {
     byId(state: IWorkout, id: string) {
       return MSession.get.serie.byId(state.session, id);
     }
+  },
+  path(state: IWorkout): [ISession, IExercice | undefined, ISerie | undefined] {
+    return [state.session, get.exercice.selected(state), get.serie.selected(state)];
   },
   delay(state: IWorkout) {
     return state.restTrigger;

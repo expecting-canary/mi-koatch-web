@@ -1,22 +1,38 @@
 import constate from 'constate';
 import { INumberPicker, INumberPickerCreate, InputEvent } from './type';
+import { useState, useCallback } from 'react';
 
-function useNumberDec({ value, setValue, disabled, step, min }: INumberPicker) {
-  disabled = disabled || value <= min;
+function useDisabledDec({ value, disabled, min }: INumberPicker) {
+  return useState(disabled || value <= min);
+}
+function useSetValueDec({ value, setValue, disabled, step, min }: INumberPicker) {
+  return useCallback(() => disabled || setValue(Math.max(value - step, min)), [value, setValue, disabled, step, min]);
+}
+function useNumberDec(props: INumberPicker) {
+  const [disabled] = useDisabledDec(props);
   return {
     disabled,
-    setValue: () => disabled || setValue(Math.max(value - step, min))
+    setValue: useSetValueDec({ ...props, disabled })
   };
 }
 
-function useNumberInc({ value, setValue, disabled, step, max }: INumberPicker) {
-  disabled = disabled || value >= max;
+function useDisabledInc({ value, disabled, max }: INumberPicker) {
+  return useState(disabled || value >= max);
+}
+function useSetValueInc({ value, setValue, disabled, step, max }: INumberPicker) {
+  return useCallback(() => disabled || setValue(Math.min(value + step, max)), [value, setValue, disabled, step, max]);
+}
+function useNumberInc(props: INumberPicker) {
+  const [disabled] = useDisabledInc(props);
   return {
     disabled,
-    setValue: () => disabled || setValue(Math.min(value + step, max))
+    setValue: useSetValueInc({ ...props, disabled })
   };
 }
 
+function useOnChange({ setValue, disabled }: INumberPicker) {
+  return useCallback((event: InputEvent) => disabled || setValue(Number(event.target.value)), [setValue, disabled]);
+}
 function useNumberPicker({
   value,
   setValue,
@@ -28,7 +44,7 @@ function useNumberPicker({
   const props = { value, disabled, step, min, max };
   return {
     ...props,
-    onChange: (event: InputEvent) => disabled || setValue(Number(event.target.value)),
+    onChange: useOnChange({ ...props, setValue }),
     inc: useNumberInc({ ...props, setValue }),
     dec: useNumberDec({ ...props, setValue })
   };

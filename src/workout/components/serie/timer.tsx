@@ -5,7 +5,7 @@ import { TimerControls } from 'react-compound-timer';
 import { useSerieContext } from './context';
 
 export function SerieTimer() {
-  const serie = useSerieContext();
+  const { serie } = useSerieContext();
   const [value, controls] = useTimerMS(0, false);
   useEffect(() => controlTimer(serie, controls), [serie, controls]);
   return <span>{value}</span>;

@@ -4,7 +4,7 @@ import { ExerciceItem } from '../exercice/info';
 import { useSessionContext } from './context';
 
 export function ExerciceList() {
-  const session = useSessionContext();
+  const { session } = useSessionContext();
   const exercices = session.exercices.map(exercice => <ExerciceItem exercice={exercice} key={exercice.id} />);
   return <ListGroup>{exercices}</ListGroup>;
 }

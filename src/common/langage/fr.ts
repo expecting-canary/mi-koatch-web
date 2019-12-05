@@ -1,11 +1,19 @@
 export const fr = {
   session: {
-    label: 'Séance'
+    label: 'Séance',
+    start: 'Commencer la séance',
+    stop: 'Arrêter la séance'
   },
   exercice: {
     label: 'Exercice'
   },
   serie: {
-    label: 'Série'
+    label: 'Série',
+    rest: 'Repos',
+    next: 'Série suivante'
+  },
+  labels: {
+    weight: 'Poids',
+    repetitions: 'Répétitions'
   }
 };

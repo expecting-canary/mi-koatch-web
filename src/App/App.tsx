@@ -1,6 +1,7 @@
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { Provider } from 'react-redux';
+import { ExerciceContext } from 'src/workout/components/exercice/context';
 import { Exercice } from 'src/workout/components/exercice/exercice';
 import { ExerciceItem } from 'src/workout/components/exercice/info';
 import { SerieItem } from 'src/workout/components/serie/info';
@@ -35,10 +36,15 @@ function Status() {
 }
 
 function MainDisplay() {
-  const exercice = UseWorkout.selector.exercice.selected();
-  const serie = UseWorkout.selector.serie.selected();
+  const [, exercice, serie] = UseWorkout.selector.path();
 
-  if (serie) return <Serie serie={serie} />;
+  if (serie && exercice) {
+    return (
+      <ExerciceContext.Provider value={exercice}>
+        <Serie serie={serie} />
+      </ExerciceContext.Provider>
+    );
+  }
   if (exercice) return <Exercice exercice={exercice} />;
   return <Session />;
 }
