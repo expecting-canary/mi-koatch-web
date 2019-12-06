@@ -6,31 +6,30 @@ import { useInterval } from 'src/common/useInterval';
 import { UseWorkout } from 'src/workout/state';
 import { useExerciceContext } from '../exercice/context';
 import { useSerieContext } from './context';
-import { useSessionContext } from '../session/context';
+import { flatSwitch } from 'src/util';
+
+const cases = {
+  ONGOING: () => <RestButton />,
+  RESTING: () => <RestWrapper />
+};
 
 export function SerieAction() {
   const { serie } = useSerieContext();
-  switch (serie.state) {
-    case 'ONGOING':
-      return <RestButton />;
-    case 'RESTING':
-      return <RestWrapper />;
-  }
-  return null;
+  return flatSwitch(serie.state, cases, null);
 }
 
 function RestButton() {
   const text = useLangage();
-  const useRest = UseWorkout.dispatch.rest();
-  return <Button onClick={useRest}>{text.serie.rest}</Button>;
+  const { rest } = useSerieContext();
+  return <Button onClick={rest}>{text.serie.rest}</Button>;
 }
 
 function RestWrapper() {
   const text = useLangage();
-  const next = useNext();
+  const stop = useNext();
   return (
     <FlexView column>
-      <Button onClick={next}>{text.serie.next}</Button>
+      <Button onClick={stop}>{text.serie.next}</Button>
       <RestActions />
     </FlexView>
   );
@@ -40,7 +39,7 @@ function getSecondes(date: Date) {
   return Math.floor((Date.now() - date.getTime()) / 1000);
 }
 
-function useRestDelay() {
+function useRestTimer() {
   const { serie } = useSerieContext();
   const [rest, setRest] = useState(getSecondes(serie.rest));
   useInterval(() => setRest(getSecondes(serie.rest)), 20);
@@ -51,19 +50,19 @@ function RestActions() {
   return (
     <FlexView>
       <RestActionButton delay={15} />
-      <RestActionButton delay={15} />
-      <RestActionButton delay={15} />
+      <RestActionButton delay={10} />
+      <RestActionButton delay={5} />
     </FlexView>
   );
 }
 
-function useNext(active = true, delay: 0 | 5 | 10 | 15 = 0) {
-  const { next } = useSessionContext();
-  if (active) return next[delay];
+function useNext(active = true, delay = 0) {
+  const { next } = useSerieContext();
+  if (active) return () => next(delay);
 }
 
-function RestActionButton({ delay }: { delay: 5 | 10 | 15 }) {
-  const rest = useRestDelay();
+function RestActionButton({ delay }: { delay: number }) {
+  const rest = useRestTimer();
   const exercice = useExerciceContext();
   const trigger = UseWorkout.selector.delay();
   const selected = trigger.delay === delay;

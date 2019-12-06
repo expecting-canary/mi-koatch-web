@@ -2,8 +2,8 @@ import { create } from './create';
 import { operation } from './operation';
 import { get } from './get';
 
-export const MWorkout = {
+export const Workout = {
   new: create,
-  do: operation,
+  ...operation,
   get
 };

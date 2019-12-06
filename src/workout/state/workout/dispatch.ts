@@ -13,9 +13,11 @@ function useRest() {
   const dispatch = useWorkoutDispatch();
   return useCallback(() => dispatch({ type: 'REST' }), [dispatch]);
 }
-function useNext(delay = 0) {
+function useNext() {
   const dispatch = useWorkoutDispatch();
-  return useCallback(() => (delay ? delayedDispatch(dispatch, delay) : dispatch({ type: 'NEXT' })), [dispatch, delay]);
+  return useCallback((delay = 0) => (delay ? delayedDispatch(dispatch, delay) : dispatch({ type: 'NEXT' })), [
+    dispatch
+  ]);
 }
 function delayedDispatch(dispatch: WorkoutDispatch, delay: number) {
   const id = setTimeout(() => {

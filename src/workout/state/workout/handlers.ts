@@ -1,16 +1,16 @@
-import { MWorkout } from 'src/workout/models/workout';
+import { Workout } from 'src/workout/models/workout';
 import { IWorkout, IRestTrigger } from 'src/workout/types';
 
 export const handlers = {
-  START: MWorkout.do.start,
-  NEXT(state: IWorkout) {
-    MWorkout.do.next(state);
-    const trigger = state.restTrigger;
+  START: Workout.start,
+  NEXT(workout: IWorkout) {
+    Workout.next(workout);
+    const trigger = workout.restTrigger;
     if (trigger.id !== undefined) clearTimeout(trigger.id);
     trigger.delay = 0;
   },
-  TRIGGER_REST(state: IWorkout, payload: IRestTrigger) {
-    const trigger = state.restTrigger;
+  TRIGGER_REST(workout: IWorkout, payload: IRestTrigger) {
+    const trigger = workout.restTrigger;
     trigger.start = new Date();
     if (trigger.id !== undefined) clearTimeout(trigger.id);
     if (payload.delay === 0) {

@@ -3,6 +3,7 @@ import { useTimerHM_MS } from 'src/common/timer';
 import { ISession } from 'src/workout/types';
 import { TimerControls } from 'react-compound-timer';
 import { useSessionContext } from './context';
+import { flatSwitch } from 'src/util';
 
 export function SessionTimer() {
   const { session } = useSessionContext();
@@ -12,18 +13,18 @@ export function SessionTimer() {
 }
 
 function controlTimer({ state, start, stop }: ISession, controls: TimerControls) {
-  switch (state) {
-    case 'TODO':
+  flatSwitch(state, {
+    TODO() {
       controls.stop();
       controls.setTime(0);
-      break;
-    case 'ONGOING':
+    },
+    ONGOING() {
       controls.start();
       controls.setTime(Date.now() - start.getTime());
-      break;
-    case 'DONE':
+    },
+    DONE() {
       controls.stop();
       controls.setTime(stop.getTime() - start.getTime());
-      break;
-  }
+    }
+  });
 }

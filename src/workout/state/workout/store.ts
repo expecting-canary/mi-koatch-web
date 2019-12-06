@@ -1,6 +1,6 @@
 import produce from 'immer';
 import { createStore, Reducer } from 'redux';
-import { MWorkout } from 'src/workout/models';
+import { Workout } from 'src/workout/models';
 import { IWorkout } from 'src/workout/types';
 import { WorkoutActions } from './actions';
 import { reducer } from './reducer';
@@ -15,7 +15,7 @@ const workoutReducer = (state: IWorkout, action: WorkoutActions) => {
 
 export const store = createStore(
   produce(workoutReducer) as Reducer<Readonly<IWorkout>, WorkoutActions>,
-  MWorkout.new()
+  Workout.new()
 );
 
 export type WorkoutDispatch = typeof store.dispatch;

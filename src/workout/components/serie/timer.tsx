@@ -3,6 +3,7 @@ import { useTimerMS } from 'src/common/timer';
 import { ISerie } from 'src/workout/types';
 import { TimerControls } from 'react-compound-timer';
 import { useSerieContext } from './context';
+import { flatSwitch } from 'src/util';
 
 export function SerieTimer() {
   const { serie } = useSerieContext();
@@ -12,22 +13,22 @@ export function SerieTimer() {
 }
 
 function controlTimer({ state, start, rest, stop }: ISerie, controls: TimerControls) {
-  switch (state) {
-    case 'TODO':
+  flatSwitch(state, {
+    TODO() {
       controls.stop();
       controls.setTime(0);
-      break;
-    case 'ONGOING':
+    },
+    ONGOING() {
       controls.start();
       controls.setTime(Date.now() - start.getTime());
-      break;
-    case 'RESTING':
+    },
+    RESTING() {
       controls.start();
       controls.setTime(Date.now() - rest.getTime());
-      break;
-    case 'DONE':
+    },
+    DONE() {
       controls.stop();
       controls.setTime(stop.getTime() - start.getTime());
-      break;
-  }
+    }
+  });
 }

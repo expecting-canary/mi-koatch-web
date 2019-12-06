@@ -1,30 +1,30 @@
 import { useSelector } from 'react-redux';
-import { MWorkout } from 'src/workout/models';
+import { Workout } from 'src/workout/models';
 
 function useSession() {
-  return useSelector(MWorkout.get.session);
+  return useSelector(Workout.get.session);
 }
 
 function useExerciceOngoing() {
-  return useSelector(MWorkout.get.exercice.ongoing);
+  return useSelector(Workout.get.exercice.ongoing);
 }
 function useExerciceSelected() {
-  return useSelector(MWorkout.get.exercice.selected);
+  return useSelector(Workout.get.exercice.selected);
 }
 
 function useSerieOngoing() {
-  return useSelector(MWorkout.get.serie.ongoing);
+  return useSelector(Workout.get.serie.ongoing);
 }
 function useSerieSelected() {
-  return useSelector(MWorkout.get.serie.selected);
+  return useSelector(Workout.get.serie.selected);
 }
 
 function usePath() {
-  return useSelector(MWorkout.get.path);
+  return useSelector(Workout.get.path);
 }
 
 function useDelay() {
-  return useSelector(MWorkout.get.delay);
+  return useSelector(Workout.get.delay);
 }
 
 export const selector = {
