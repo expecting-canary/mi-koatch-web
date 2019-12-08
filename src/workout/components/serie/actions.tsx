@@ -3,9 +3,8 @@ import { Button } from 'react-bootstrap';
 import FlexView from 'react-flexview/lib';
 import { useLangage } from 'src/common/langage/context';
 import { useInterval } from 'src/common/useInterval';
-import { UseWorkout } from 'src/workout/state';
-import { useExerciceContext } from '../exercice/context';
-import { useSerieContext } from './context';
+import { useExerciceContext } from '../../providers/exercice';
+import { useSerieContext } from '../../providers/serie';
 import { flatSwitch } from 'src/util';
 
 const cases = {
@@ -35,14 +34,14 @@ function RestWrapper() {
   );
 }
 
-function getSecondes(date: Date) {
-  return Math.floor((Date.now() - date.getTime()) / 1000);
+function getSecondes(timestamp: number) {
+  return Math.floor((Date.now() - timestamp) / 1000);
 }
 
 function useRestTimer() {
   const { serie } = useSerieContext();
-  const [rest, setRest] = useState(getSecondes(serie.rest));
-  useInterval(() => setRest(getSecondes(serie.rest)), 20);
+  const [rest, setRest] = useState(getSecondes(serie.restTime));
+  useInterval(() => setRest(getSecondes(serie.restTime)), 20);
   return rest;
 }
 
@@ -62,14 +61,14 @@ function useNext(active = true, delay = 0) {
 }
 
 function RestActionButton({ delay }: { delay: number }) {
+  const { trigger } = useSerieContext();
+  const { exercice } = useExerciceContext();
   const rest = useRestTimer();
-  const exercice = useExerciceContext();
-  const trigger = UseWorkout.selector.delay();
   const selected = trigger.delay === delay;
   const active = exercice.rest - rest <= delay;
   const next = useNext(active, delay);
 
-  const time = selected ? delay - getSecondes(trigger.start) : delay;
+  const time = selected ? delay - getSecondes(trigger.startTime) : delay;
 
   return (
     <FlexView grow column>

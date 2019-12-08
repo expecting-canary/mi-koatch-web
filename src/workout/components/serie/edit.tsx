@@ -1,8 +1,8 @@
 import React from 'react';
 import FlexView from 'react-flexview/lib';
 import { NumberPicker } from 'src/common/picker/number/number';
-import { useSerieContext } from './context';
-import { SerieEditable } from 'src/workout/types';
+import { useSerieContext } from '../../providers/serie';
+import { SerieEditable } from 'src/workout/models';
 import { useLangage } from 'src/common/langage/context';
 
 export function SerieEdit() {

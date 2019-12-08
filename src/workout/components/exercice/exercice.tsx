@@ -1,16 +1,16 @@
 import React from 'react';
-import { IExercice } from 'src/workout/types';
+import { Exercice as Model } from 'src/workout/models';
 import { ExerciceEdit } from './edit';
 import { SerieList } from './list';
-import { ExerciceContext } from './context';
+import { ExerciceContextProvider } from '../../providers/exercice';
 
-export function Exercice({ exercice }: { exercice: IExercice }) {
+export function Exercice({ exercice }: { exercice: Model }) {
   return (
     <div>
-      <ExerciceContext.Provider value={exercice}>
+      <ExerciceContextProvider exercice={exercice}>
         <ExerciceEdit />
         <SerieList />
-      </ExerciceContext.Provider>
+      </ExerciceContextProvider>
     </div>
   );
 }

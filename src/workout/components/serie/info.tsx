@@ -3,22 +3,22 @@ import { ListGroupItem } from 'react-bootstrap';
 import FlexView from 'react-flexview';
 import { Icon } from 'src/common/icon/icon';
 import { useLangage } from 'src/common/langage/context';
-import { MSerie } from 'src/workout/models';
-import { UseWorkout } from 'src/workout/state';
-import { IExercice, ISerie } from 'src/workout/types';
-import { ExerciceContext, useExerciceContext } from '../exercice/context';
-import { SerieContextProvider, useSerieContext } from './context';
+import { Serie } from 'src/workout/models';
+import { Exercice } from 'src/workout/models';
+import { ExerciceContextProvider, useExerciceContext } from '../../providers/exercice';
+import { SerieContextProvider, useSerieContext } from '../../providers/serie';
 import { SerieTimer } from './timer';
+import { useWorkoutContext } from 'src/workout/providers/workout';
 
 function useSelect(id: string) {
-  const selectSerie = UseWorkout.dispatch.select.serie();
-  return () => selectSerie(id);
+  const select = useWorkoutContext().select.serie;
+  return () => select(id);
 }
 
 function SerieInfo() {
-  const exercice = useExerciceContext();
+  const { exercice } = useExerciceContext();
   const { serie } = useSerieContext();
-  const index = exercice.result.findIndex(result => result.id === serie.id);
+  const index = exercice.result.findIndex(result => result === serie.id);
   const onClick = useSelect(serie.id);
   const langage = useLangage();
   return (
@@ -55,7 +55,7 @@ function TimerDetail() {
 
 function TimerIcon() {
   const { serie } = useSerieContext();
-  return MSerie.util.isState(serie, 'RESTING') ? <Icon icon={'hourglass'} far /> : <Icon icon={'clock'} far />;
+  return serie.hasState('RESTING') ? <Icon icon={'hourglass'} far /> : <Icon icon={'clock'} far />;
 }
 function WeightDetail() {
   const { serie } = useSerieContext();
@@ -80,12 +80,12 @@ function RepetitionsDetail() {
 
 ///
 
-export function SerieItem({ serie, exercice }: { serie?: ISerie; exercice?: IExercice }) {
+export function SerieItem({ serie, exercice }: { serie?: Serie; exercice?: Exercice }) {
   return serie && exercice ? (
-    <ExerciceContext.Provider value={exercice}>
+    <ExerciceContextProvider exercice={exercice}>
       <SerieContextProvider serie={serie}>
         <SerieInfo />
       </SerieContextProvider>
-    </ExerciceContext.Provider>
+    </ExerciceContextProvider>
   ) : null;
 }

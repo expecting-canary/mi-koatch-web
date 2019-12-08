@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useTimerHM_MS } from 'src/common/timer';
-import { ISession } from 'src/workout/types';
+import { Session } from 'src/workout/models';
 import { TimerControls } from 'react-compound-timer';
-import { useSessionContext } from './context';
+import { useSessionContext } from '../../providers/session';
 import { flatSwitch } from 'src/util';
 
 export function SessionTimer() {
@@ -12,7 +12,7 @@ export function SessionTimer() {
   return <span>{value}</span>;
 }
 
-function controlTimer({ state, start, stop }: ISession, controls: TimerControls) {
+function controlTimer({ state, startTime, stopTime }: Session, controls: TimerControls) {
   flatSwitch(state, {
     TODO() {
       controls.stop();
@@ -20,11 +20,11 @@ function controlTimer({ state, start, stop }: ISession, controls: TimerControls)
     },
     ONGOING() {
       controls.start();
-      controls.setTime(Date.now() - start.getTime());
+      controls.setTime(Date.now() - startTime);
     },
     DONE() {
       controls.stop();
-      controls.setTime(stop.getTime() - start.getTime());
+      controls.setTime(stopTime - startTime);
     }
   });
 }

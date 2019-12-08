@@ -1,11 +1,10 @@
 import React from 'react';
 import { NumberPicker } from 'src/common/picker/number/number';
-import { UseWorkout } from 'src/workout/state';
-import { ExerciceEditable } from 'src/workout/types';
-import { useExerciceContext } from './context';
+import { ExerciceEditable } from 'src/workout/models';
+import { useExerciceContext } from '../../providers/exercice';
 
 export function ExerciceEdit() {
-  const exercice = useExerciceContext();
+  const { exercice } = useExerciceContext();
   const active = exercice.state === 'TODO';
   const serieActive = active || exercice.state === 'ONGOING';
   const serieMin = exercice.result.length;
@@ -35,20 +34,14 @@ type EditProps = {
   step?: number;
 };
 
-function useUpdate(key: ExerciceEditable) {
-  const exercice = useExerciceContext();
-  const dispatch = UseWorkout.dispatch.update.exercice();
-  const setValue = (value: number) => dispatch({ id: exercice.id, [key]: value });
-  const value = exercice[key];
-  return { value, setValue };
-}
-
 function ExerciceEditItem({ children, prop, active, min, step }: EditProps) {
-  const { value, setValue } = useUpdate(prop);
+  const { exercice, update } = useExerciceContext();
   return (
     <div>
       {children}
-      <NumberPicker {...{ value, setValue, min, step, disabled: !active }} />
+      <NumberPicker
+        {...{ value: exercice[prop], setValue: update[prop], min, step, disabled: !active }}
+      />
     </div>
   );
 }

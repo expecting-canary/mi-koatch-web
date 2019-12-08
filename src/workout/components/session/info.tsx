@@ -2,12 +2,12 @@ import React from 'react';
 import { ListGroupItem } from 'react-bootstrap';
 import FlexView from 'react-flexview';
 import { Icon } from 'src/common/icon/icon';
-import { ISession } from 'src/workout/types';
-import { SessionContextProvider, useSessionContext } from './context';
+import { Session } from 'src/workout/models';
+import { SessionContextProvider, useSessionContext } from '../../providers/session';
 import { SessionTimer } from './timer';
 
 function SessionInfo() {
-  const {  select } = useSessionContext();
+  const { select } = useSessionContext();
   return (
     <ListGroupItem>
       <FlexView wrap onClick={select}>
@@ -52,9 +52,9 @@ function ExercicesDetail() {
 
 ///
 
-export function SessionItem({ session }: { session?: ISession }) {
+export function SessionItem({ session }: { session?: Session }) {
   return session ? (
-    <SessionContextProvider session={session}>
+    <SessionContextProvider>
       <SessionInfo />
     </SessionContextProvider>
   ) : null;

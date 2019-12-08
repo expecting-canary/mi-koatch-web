@@ -1,11 +1,11 @@
 import React from 'react';
 import FlexView from 'react-flexview/lib';
-import { ISerie } from 'src/workout/types';
 import { SerieAction } from './actions';
-import { SerieContextProvider } from './context';
+import { SerieContextProvider } from '../../providers/serie';
 import { SerieEdit } from './edit';
+import { Serie as Model } from 'src/workout/models';
 
-export function Serie({ serie }: { serie: ISerie }) {
+export function Serie({ serie }: { serie: Model }) {
   const editable = serie.state !== 'ONGOING';
   return (
     <SerieContextProvider serie={serie}>

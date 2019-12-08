@@ -2,21 +2,14 @@ import React from 'react';
 import { ListGroupItem } from 'react-bootstrap';
 import FlexView from 'react-flexview/lib';
 import { Icon } from 'src/common/icon/icon';
-import { UseWorkout } from 'src/workout/state';
-import { IExercice } from 'src/workout/types';
+import { Exercice } from 'src/workout/models';
+import { ExerciceContextProvider, useExerciceContext } from '../../providers/exercice';
 import { ExerciceTimer } from './timer';
-import { useExerciceContext, ExerciceContext } from './context';
-
-function useSelect(id: string) {
-  const select = UseWorkout.dispatch.select.exercice();
-  return () => select(id);
-}
 
 function ExerciceInfo() {
-  const exercice = useExerciceContext();
-  const onClick = useSelect(exercice.id);
+  const { exercice, select } = useExerciceContext();
   return (
-    <ListGroupItem onClick={onClick}>
+    <ListGroupItem onClick={select}>
       <FlexView wrap>
         <FlexView grow>{exercice.name}</FlexView>
         <Details />
@@ -47,7 +40,7 @@ function TimerDetail() {
 }
 
 function RestDetail() {
-  const exercice = useExerciceContext();
+  const { exercice } = useExerciceContext();
   return (
     <FlexView width={50} hAlignContent="right" vAlignContent="center">
       {exercice.rest}
@@ -57,7 +50,7 @@ function RestDetail() {
   );
 }
 function SeriesDetail() {
-  const exercice = useExerciceContext();
+  const { exercice } = useExerciceContext();
   return (
     <FlexView width={50} hAlignContent="right" vAlignContent="center">
       {exercice.series}
@@ -69,10 +62,10 @@ function SeriesDetail() {
 
 ///
 
-export function ExerciceItem({ exercice }: { exercice?: IExercice }) {
+export function ExerciceItem({ exercice }: { exercice?: Exercice }) {
   return exercice ? (
-    <ExerciceContext.Provider value={exercice}>
+    <ExerciceContextProvider exercice={exercice}>
       <ExerciceInfo />
-    </ExerciceContext.Provider>
+    </ExerciceContextProvider>
   ) : null;
 }

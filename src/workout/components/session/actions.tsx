@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useLangage } from 'src/common/langage/context';
-import { useSessionContext } from './context';
+import { useSessionContext } from '../../providers/session';
 
 export function SessionAction() {
   const text = useLangage();
