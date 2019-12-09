@@ -1,4 +1,4 @@
-import { Serie, SerieDB } from './serie';
+import { Exercice, SerieDB } from '../../../models/serie';
 import { generateId } from 'src/common/id';
 import { DB } from 'src/util';
 
@@ -23,7 +23,7 @@ export class Exercice {
   weight = 10;
   series = 4;
   repetitions = 10;
-  result: Serie['id'][] = [];
+  result: Exercice['id'][] = [];
 
   constructor() {
     ExerciceDB.add(this);
@@ -61,7 +61,7 @@ export class Exercice {
     this.stopTime = Date.now();
   }
 
-  addSerie(serie: Serie) {
+  addSerie(serie: Exercice) {
     this.result.push(serie.id);
   }
 

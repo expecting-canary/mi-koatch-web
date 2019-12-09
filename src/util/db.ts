@@ -45,3 +45,5 @@ export class DB<S extends { [immerable]?: boolean; id: string }> {
     if (typeof value === 'object') this.data = remove(this.data, item => value.id === item.id);
   }
 }
+
+export type DBModel = { id: string; [immerable]: boolean };

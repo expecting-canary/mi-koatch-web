@@ -1,22 +1,28 @@
 import { immerable } from 'immer';
-import { Session, SessionDB } from './session';
-import { Serie, SerieDB } from './serie';
 import { Exercice, ExerciceDB } from './exercice';
+import { Exercice, SerieDB } from '../../../models/serie';
+import { Session, SessionDB } from './session';
 
+type WorkoutSelectedNone = {
+  type: 'NONE';
+};
 type WorkoutSelectedSession = {
   type: 'SESSION';
-  id: Session['id'];
+  session: Session['id'];
 };
 type WorkoutSelectedExercice = {
   type: 'EXERCICE';
-  id: Serie['id'];
+  session: Session['id'];
+  exercice: Exercice['id'];
 };
 type WorkoutSelectedSerie = {
   type: 'SERIE';
-  id: Serie['id'];
+  session: Session['id'];
+  exercice: Exercice['id'];
+  serie: Exercice['id'];
 };
 
-type WorkoutSelected = WorkoutSelectedSession | WorkoutSelectedExercice | WorkoutSelectedSerie;
+type WorkoutSelected = WorkoutSelectedNone | WorkoutSelectedSession | WorkoutSelectedExercice | WorkoutSelectedSerie;
 
 export type SelectedType = 'NONE' | 'SESSION' | 'EXERCICE' | 'SERIE';
 
@@ -32,7 +38,7 @@ export class Workout {
   type: SelectedType = 'NONE';
   session?: Session['id'];
   exercice?: Exercice['id'];
-  serie?: Serie['id'];
+  serie?: Exercice['id'];
 
   trigger: WorkoutRestTrigger = {
     delay: 0,
@@ -47,6 +53,15 @@ export class Workout {
   }
   $serie() {
     return SerieDB.getOpt(this.serie);
+  }
+
+  $selected(): WorkoutSelected {
+    return {
+      type: this.type,
+      session: this.session,
+      exercice: this.exercice,
+      serie: this.serie
+    } as any;
   }
 
   $ongoingExercice() {

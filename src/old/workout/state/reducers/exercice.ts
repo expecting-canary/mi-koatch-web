@@ -1,5 +1,5 @@
 import { ExerciceActions } from 'src/workout/state/actions/exercice';
-import { reducerBuilder } from 'src/common/reducer.builder';
+import { reducerBuilder } from 'src/util/reducer';
 import { Exercice, ExerciceDB, ExerciceUpdater } from 'src/workout/models';
 
 export const exerciceReducer = reducerBuilder<Exercice[], ExerciceActions>({

@@ -1,4 +1,4 @@
-import { reducerBuilder } from 'src/common/reducer.builder';
+import { reducerBuilder } from 'src/util/reducer';
 import { Workout, WorkoutRestTrigger } from 'src/workout/models';
 import { WorkoutActions } from '../actions/workout';
 
@@ -12,7 +12,7 @@ export const workoutReducer = reducerBuilder<Workout, WorkoutActions>({
     if (trigger.id !== undefined) clearTimeout(trigger.id);
     trigger.delay = 0;
   },
-  WORKOUT_REST(workout: Workout) {
+  SERIE_REST(workout: Workout) {
     workout.rest();
   },
   WORKOUT_TRIGGER_REST(workout: Workout, payload: WorkoutRestTrigger) {
