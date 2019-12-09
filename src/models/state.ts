@@ -1,5 +1,7 @@
-import { Exercice } from './serie';
+import { Exercice } from './exercice';
+import { Structure } from './structures';
 
 export interface State {
-  series: Exercice[];
+  exercices: Exercice[];
+  structures: Structure[];
 }

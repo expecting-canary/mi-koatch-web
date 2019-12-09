@@ -1,14 +1,10 @@
-import { ExerciceTypes } from './types/all';
+import { ExerciceTypes } from './exercices';
 
 export type ExerciceState = 'TODO' | 'ONGOING' | 'DONE';
 
-interface BasicExercice {
+export interface BasicExercice {
   id: string;
-
   state: ExerciceState;
-
-  type: string;
-
   start: number;
   stop: number;
 }
@@ -16,3 +12,5 @@ interface BasicExercice {
 export type Exercice = ExerciceTypes & BasicExercice;
 
 export type ExerciceUpdater = Partial<Exercice> & Pick<Exercice, 'id'>;
+
+export * from './exercices';

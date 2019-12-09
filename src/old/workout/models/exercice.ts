@@ -1,4 +1,4 @@
-import { Exercice, SerieDB } from '../../../models/serie';
+import { Exercice, SerieDB } from '../../../models/structures/exercice';
 import { generateId } from 'src/common/id';
 import { DB } from 'src/util';
 

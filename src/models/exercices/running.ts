@@ -1,4 +1,4 @@
-export interface Running {
+export interface RunningExercice {
   type: 'RUNNING';
 
   distance?: number;

@@ -1,7 +1,6 @@
-export interface Workout {
+export interface WorkoutExercice {
   type: 'WORKOUT';
 
-  rest: number;
   weight: number;
   repetitions: number;
 }

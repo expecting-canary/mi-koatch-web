@@ -1,6 +1,6 @@
 import { immerable } from 'immer';
 import { Exercice, ExerciceDB } from './exercice';
-import { Exercice, SerieDB } from '../../../models/serie';
+import { Exercice, SerieDB } from '../../../models/structures/exercice';
 import { Session, SessionDB } from './session';
 
 type WorkoutSelectedNone = {
