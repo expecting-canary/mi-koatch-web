@@ -1,21 +1,18 @@
 import React from 'react';
-import { Button, FormControl, InputGroup } from 'react-bootstrap';
-import { Icon } from 'src/common/icon';
 import { NumberPickerProvider, useNumberPickerContext } from './context';
 import { INumberPickerCreate } from './type';
 
 export function NumberPicker(props: INumberPickerCreate) {
   return (
-    <NumberPickerProvider {...props}>
+    <NumberPickerProvider {...props}>{}</NumberPickerProvider>
+  ); /*
       <InputGroup>
         <DecButton />
         <NumberInput />
         <IncButton />
-      </InputGroup>
-    </NumberPickerProvider>
-  );
+      </InputGroup>*/
 }
-
+/*
 function NumberInput() {
   const { onChange, disabled, value } = useNumberPickerContext();
   return <FormControl type="number" value={'' + value} onChange={onChange} disabled={disabled} />;
@@ -44,3 +41,4 @@ function IncButton() {
     </InputGroup.Append>
   );
 }
+*/

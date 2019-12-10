@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { Exercice } from 'src/models/exercice';
+import { Exercice } from 'src/models';
 import { add, find } from 'src/util/list';
 import { exerciceActionAdd, exerciceActionStart, exerciceActionStop, exerciceActionUpdate } from './actions';
 import { serieDoStart, serieDoStop, serieDoUpdate } from './handlers';

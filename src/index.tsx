@@ -1,11 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'typeface-roboto';
 import App from './App/App';
-import './index.scss';
-import * as serviceWorker from './serviceWorker';
 import { LangageContext } from './common/langage/context';
 import { fr } from './common/langage/fr';
+import './index.scss';
+import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   // tslint:disable-next-line: jsx-wrap-multiline

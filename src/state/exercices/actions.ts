@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Exercice, ExerciceUpdater } from 'src/models/exercice';
+import { Exercice, ExerciceUpdater } from 'src/models';
 import { EXERCICE_ADD, EXERCICE_START, EXERCICE_STOP, EXERCICE_UPDATE } from '../action';
 
 export const exerciceActionAdd = createAction(EXERCICE_ADD, (exercice: Exercice | Exercice[]) => {

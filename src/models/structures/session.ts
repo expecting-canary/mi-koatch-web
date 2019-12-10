@@ -2,7 +2,6 @@ import { ExerciceData, ID, StructureBase, StructureData, STRUCTURE_SESSION } fro
 
 export interface StructureSessionData {
   type: typeof STRUCTURE_SESSION;
-  index: number;
   content: (ExerciceData | StructureData)[];
 }
 

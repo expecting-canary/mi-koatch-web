@@ -1,4 +1,4 @@
-import { ExerciceUpdater, Exercice } from 'src/models/exercice';
+import { ExerciceUpdater, Exercice } from 'src/models';
 
 export function serieDoStart(serie: Exercice) {
   serie.state = 'ONGOING';

@@ -1,4 +1,4 @@
-import { Exercice } from './exercice';
+import { Exercice } from './exercices';
 import { Structure } from './structures';
 
 export interface State {
