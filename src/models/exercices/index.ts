@@ -1,7 +1,12 @@
-import { RunningExercice } from './running';
-import { WorkoutExercice } from './workout';
+import { ExerciceRunningData, ExerciceRunning } from './running';
+import { ExerciceWorkoutData, ExerciceWorkout } from './workout';
 
-export type ExerciceTypes = RunningExercice | WorkoutExercice;
+export type ExerciceData = ExerciceRunningData | ExerciceWorkoutData;
 
+export type Exercice = ExerciceRunning | ExerciceWorkout;
+
+export type ExerciceUpdater = Partial<Exercice> & Pick<Exercice, 'id'>;
+
+export * from './base';
 export * from './running';
 export * from './workout';

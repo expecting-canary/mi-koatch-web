@@ -1,12 +1,12 @@
-import { ExerciceTypes } from '../exercices';
-import { Exercice } from '../exercice';
-import { BasicStructure } from './basic';
+import { ExerciceData, ID, StructureBase, STRUCTURE_SERIE } from 'src/models';
 
-export interface Serie extends BasicStructure {
-  type: 'SERIE';
-
-  content: ExerciceTypes;
+export interface StructureSerieData {
+  type: typeof STRUCTURE_SERIE;
+  content: ExerciceData;
   series: number;
   rest: number;
-  result: [Exercice['id'], number][];
 }
+
+export type StructureSerieResult = [ID, number][];
+
+export type StructureSerie = StructureSerieData & StructureBase<StructureSerieResult>;

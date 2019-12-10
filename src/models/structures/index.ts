@@ -1,14 +1,16 @@
-import { Session } from './session';
-import { Serie } from './serie';
-import { RotationStructure } from './rotation';
-import { BasicStructure } from './basic';
+import { StructureSerie, StructureSerieData, StructureSerieResult } from './serie';
+import { StructureSession, StructureSessionData } from './session';
+import { StructureRotationData, StructureRotation } from './rotation';
 
-export type StructureTypes = Session | Serie | RotationStructure;
+export type StructureData = StructureSessionData | StructureSerieData | StructureRotationData;
 
-export type Structure = StructureTypes & BasicStructure;
+export type StructureResult = StructureSerieResult;
+
+export type Structure = StructureSession | StructureSerie | StructureRotation;
 
 export type StructureUpdater = Partial<Structure>;
 
-export * from './session';
-export * from './serie';
+export * from './base';
 export * from './rotation';
+export * from './serie';
+export * from './session';

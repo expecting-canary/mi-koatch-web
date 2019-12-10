@@ -1,12 +1,14 @@
 import { Dispatch } from 'redux';
-import { ExerciceTypes } from 'src/models';
-import { addExerciceAction, createExercice, startExerciceAction } from 'src/state';
+import { ExerciceData } from 'src/models';
+import { exerciceCreate, exerciceActionAdd, exerciceActionStart } from 'src/state';
 
-export function createExerciceThunk(data: ExerciceTypes) {
+export function exerciceThunkCreate(data: ExerciceData, start = false) {
   return function(dispatch: Dispatch) {
-    const exercice = createExercice(data);
-    dispatch(addExerciceAction(exercice));
-    dispatch(startExerciceAction(exercice.id));
+    const exercice = exerciceCreate(data);
+    dispatch(exerciceActionAdd(exercice));
+    if (start) {
+      dispatch(exerciceActionStart(exercice.id));
+    }
     return exercice;
   };
 }

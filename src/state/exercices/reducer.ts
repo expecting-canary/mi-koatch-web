@@ -1,21 +1,21 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { Exercice } from 'src/models/exercice';
 import { add, find } from 'src/util/list';
-import { addSerie, startSerie, stopSerie, updateSerie } from './actions';
-import { doSerieStart, doSerieStop, doSerieUpdate } from './handlers';
+import { exerciceActionAdd, exerciceActionStart, exerciceActionStop, exerciceActionUpdate } from './actions';
+import { serieDoStart, serieDoStop, serieDoUpdate } from './handlers';
 
 export const seriesReducer = createReducer<Exercice[]>([], builder =>
   builder
-    .addCase(addSerie, (state, { payload }) => {
+    .addCase(exerciceActionAdd, (state, { payload }) => {
       add(state, payload);
     })
-    .addCase(startSerie, (state, { payload }) => {
-      doSerieStart(find(state, payload));
+    .addCase(exerciceActionStart, (state, { payload }) => {
+      serieDoStart(find(state, payload));
     })
-    .addCase(stopSerie, (state, { payload }) => {
-      doSerieStop(find(state, payload));
+    .addCase(exerciceActionStop, (state, { payload }) => {
+      serieDoStop(find(state, payload));
     })
-    .addCase(updateSerie, (state, { payload }) => {
-      doSerieUpdate(find(state, payload.id), payload.values);
+    .addCase(exerciceActionUpdate, (state, { payload }) => {
+      serieDoUpdate(find(state, payload.id), payload.values);
     })
 );

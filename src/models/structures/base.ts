@@ -1,11 +1,11 @@
+import { ID } from 'src/models';
+
 export type StructureState = 'TODO' | 'ONGOING' | 'DONE';
 
-export interface BasicStructure {
-  id: string;
+export interface StructureBase<Result extends [] = []> {
+  id: ID;
 
   state: StructureState;
-
-  type: string;
 
   level: number;
 
@@ -13,4 +13,6 @@ export interface BasicStructure {
 
   start: number;
   stop: number;
+
+  result: Result;
 }

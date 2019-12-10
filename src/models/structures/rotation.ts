@@ -1,15 +1,16 @@
-import { ExerciceTypes } from '../exercices';
-import { Exercice } from '../exercice';
-import { BasicStructure } from './basic';
+import { ExerciceData, ID, StructureBase, STRUCTURE_ROTATION } from 'src/models';
 
-export interface RotationStructure extends BasicStructure {
-  type: 'ROTATION';
+export interface StructureRotationData {
+  type: typeof STRUCTURE_ROTATION;
 
-  content: ExerciceTypes[];
+  content: ExerciceData[];
   series: number;
   rest: {
     short: number;
     long: number;
   };
-  result: [[Exercice['id'], number][], number][];
 }
+
+export type StructureRotationResult = [[ID, number][], number][];
+
+export type StructureRotation = StructureRotationData & StructureBase<StructureRotationResult>;

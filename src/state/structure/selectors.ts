@@ -1,21 +1,17 @@
 import { createSelector } from 'reselect';
-import { State, Structure } from 'src/models';
-import { find } from 'src/util/list';
-import { hasStructureState } from './util';
+import { State } from 'src/models';
+import { structureHasState } from './util';
 
-export function structuresSelector(state: State) {
+export function structureSelector(state: State) {
   return state.structures;
 }
-export function structureSelector(state: State, id: Structure['id']) {
-  return find(state.structures, id);
-}
 
-export const todoStructuresSelector = createSelector(structuresSelector, structures =>
-  structures.filter(structure => hasStructureState(structure, 'TODO'))
+export const structureSelectorTodo = createSelector(structureSelector, structures =>
+  structures.filter(structure => structureHasState(structure, 'TODO'))
 );
-export const ongoingStructuresSelector = createSelector(structuresSelector, structures =>
-  structures.filter(structure => hasStructureState(structure, 'ONGOING'))
+export const structureSelectorOngoing = createSelector(structureSelector, structures =>
+  structures.filter(structure => structureHasState(structure, 'ONGOING'))
 );
-export const doneStructuresSelector = createSelector(structuresSelector, structures =>
-  structures.filter(structure => hasStructureState(structure, 'DONE'))
+export const structureSelectorDone = createSelector(structureSelector, structures =>
+  structures.filter(structure => structureHasState(structure, 'DONE'))
 );

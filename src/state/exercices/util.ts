@@ -1,11 +1,11 @@
-import { Exercice, BasicExercice, ExerciceTypes } from 'src/models';
+import { Exercice, ExerciceBase, ExerciceData } from 'src/models';
 import uuid from 'uuid';
 
-export function hasExerciceState(serie: Exercice, ...states: Exercice['state'][]) {
+export function exerciceHasState(serie: Exercice, ...states: Exercice['state'][]) {
   return states.includes(serie.state);
 }
 
-function createExerciceBase(): BasicExercice {
+function exerciceCreateBase(): ExerciceBase {
   return {
     id: uuid.v4(),
     state: 'TODO',
@@ -14,6 +14,6 @@ function createExerciceBase(): BasicExercice {
   };
 }
 
-export function createExercice(data: ExerciceTypes): Exercice {
-  return { ...createExerciceBase(), ...data };
+export function exerciceCreate(data: ExerciceData): Exercice {
+  return { ...exerciceCreateBase(), ...data };
 }

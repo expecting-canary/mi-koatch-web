@@ -1,40 +1,40 @@
 import { Dispatch } from 'redux';
-import { Serie } from 'src/models';
+import { StructureSerieData, StructureSerie } from 'src/models';
 import {
-  createExerciceThunk,
-  startStructureAction,
-  stopExerciceAction,
-  stopStructureAction,
-  updateStructureAction
+  exerciceActionStop,
+  exerciceThunkCreate,
+  structureActionStart,
+  structureActionStop,
+  structureActionUpdate
 } from 'src/state';
 
-export function startSerieThunk(serie: Serie) {
+export function structureSerieThunkStart(serie: StructureSerie) {
   return function(dispatch: Dispatch) {
-    dispatch(startStructureAction(serie.id));
-    return nextExerciceSerieThunk(serie)(dispatch);
+    dispatch(structureActionStart(serie.id));
+    return structureSerieThunkNextExercice(serie)(dispatch);
   };
 }
 
-export function nextExerciceSerieThunk(serie: Serie) {
+export function structureSerieThunkNextExercice(serie: StructureSerie) {
   return function(dispatch: Dispatch) {
     const { id, content, result, series } = serie;
     const index = result.length - 1;
     if (index >= 0) {
-      dispatch(stopExerciceAction(result[index][0]));
+      dispatch(exerciceActionStop(result[index][0]));
     }
     if (result.length < series) {
-      const exercice = createExerciceThunk(content)(dispatch);
-      dispatch(updateStructureAction(id, { result: [...result, [exercice.id, 0]] }));
+      const exercice = exerciceThunkCreate(content)(dispatch);
+      dispatch(structureActionUpdate(id, { result: [...result, [exercice.id, 0]] }));
       return true;
     } else {
-      return stopSerieThunk(serie)(dispatch);
+      return structureSerieThunkStop(serie)(dispatch);
     }
   };
 }
 
-export function stopSerieThunk(serie: Serie) {
+export function structureSerieThunkStop(serie: StructureSerie) {
   return function(dispatch: Dispatch) {
-    dispatch(stopStructureAction(serie.id));
+    dispatch(structureActionStop(serie.id));
     return false;
   };
 }

@@ -1,9 +1,11 @@
-import { Structure } from '.';
-import { Exercice } from '../exercice';
-import { BasicStructure } from './basic';
+import { ExerciceData, ID, StructureBase, StructureData, STRUCTURE_SESSION } from 'src/models';
 
-export interface Session extends BasicStructure {
-  type: 'SESSION';
+export interface StructureSessionData {
+  type: typeof STRUCTURE_SESSION;
   index: number;
-  content: (['EXERCICE', Exercice['id']] | ['STRUCTURE', Structure['id']])[];
+  content: (ExerciceData | StructureData)[];
 }
+
+export type StructureSessionResult = ID[];
+
+export type StructureSession = StructureSessionData & StructureBase<StructureSessionResult>;
