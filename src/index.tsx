@@ -1,6 +1,5 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'typeface-roboto';
 import './index.scss';
+import 'typeface-roboto';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

@@ -20,5 +20,6 @@
   "typescriptHero.imports.multiLineWrapThreshold": 100,
   "typescriptHero.imports.organizeOnSave": true,
   "editor.formatOnSave": true,
-  "typescript.format.placeOpenBraceOnNewLineForFunctions": false
+  "typescript.format.placeOpenBraceOnNewLineForFunctions": false,
+  "editor.rulers": [80, 100]
 }
