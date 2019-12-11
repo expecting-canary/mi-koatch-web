@@ -1,11 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'typeface-roboto';
+import './index.scss';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'typeface-roboto';
+
 import App from './App/App';
 import { LangageContext } from './common/langage/context';
 import { fr } from './common/langage/fr';
-import './index.scss';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -13,7 +15,7 @@ ReactDOM.render(
   <LangageContext.Provider value={fr}>
     <App />
   </LangageContext.Provider>,
-  document.getElementById('root')
+  document.getElementById( 'root' ),
 );
 
 // If you want your app to work offline and load faster, you can change

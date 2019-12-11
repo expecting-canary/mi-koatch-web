@@ -1,4 +1,4 @@
-import { StructureSession } from './structures';
+import { IStructureSession } from './structures';
 
 export const structureSessionTest = {
   id: '0',
@@ -12,7 +12,7 @@ export const structureSessionTest = {
     {
       type: 'EXERCICE_WORKOUT',
       repetitions: 10,
-      weight: 20
+      weight: 20,
     },
     {
       type: 'STRUCTURE_SERIE',
@@ -21,9 +21,9 @@ export const structureSessionTest = {
       content: {
         type: 'EXERCICE_WORKOUT',
         weight: 10,
-        repetitions: 10
-      }
-    }
+        repetitions: 10,
+      },
+    },
   ],
-  result: ['id']
-} as StructureSession;
+  result: [ 'id' ],
+} as IStructureSession;

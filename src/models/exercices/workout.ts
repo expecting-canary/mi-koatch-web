@@ -1,9 +1,9 @@
-import { ExerciceBase, EXERCICE_WORKOUT } from 'src/models';
+import { EXERCICE_WORKOUT, IExerciceBase } from 'src/models';
 
-export interface ExerciceWorkoutData {
+export interface IExerciceWorkoutData {
   type: typeof EXERCICE_WORKOUT;
   weight: number;
   repetitions: number;
 }
 
-export type ExerciceWorkout = ExerciceWorkoutData & ExerciceBase;
+export type IExerciceWorkout = IExerciceWorkoutData & IExerciceBase;

@@ -2,46 +2,48 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  ListItem,
-  Typography,
+  Divider,
   List,
+  ListItem,
   ListSubheader,
-  Divider
+  Typography,
 } from '@material-ui/core';
 import React from 'react';
 import {
   EXERCICE_RUNNING,
   EXERCICE_WORKOUT,
-  StructureSession,
+  IStructureSession,
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
-  STRUCTURE_SESSION
+  STRUCTURE_SESSION,
 } from 'src/models';
 
-type StructureSessionMainProps = { session: StructureSession };
+interface IStructureSessionMainProps { session: IStructureSession }
 
-export function StructureSessionMain({ session }: StructureSessionMainProps) {
+export function StructureSessionMain( { session }: IStructureSessionMainProps ) {
   return (
     <Card>
       <CardContent>
         <Typography variant="h5">Session</Typography>
       </CardContent>
       <Divider />
-      <CardActionArea>{mapContent(session.content)}</CardActionArea>
+      <CardActionArea>{mapContent( session.content )}</CardActionArea>
       <Divider />
-      <CardActionArea>{mapContent(session.content)}</CardActionArea>
+      <CardActionArea>{mapContent( session.content )}</CardActionArea>
     </Card>
   );
 }
 
-function mapContent(content: StructureSession['content']) {
+function mapContent( content: IStructureSession[ 'content' ] ) {
   const subHeader = <ListSubheader component="div">Content</ListSubheader>;
-  const listItems = content.map((item, index) => <ListItem button key={index}>{buildContentItem(item)}</ListItem>);
+  const listItems = content.map( ( item, index ) =>
+    <ListItem button key={index}>{buildContentItem( item )}</ListItem>,
+  );
   return <List subheader={subHeader}>{listItems}</List>;
 }
 
-function buildContentItem(item: StructureSession['content'][number]) {
-  switch (item.type) {
+function buildContentItem( item: IStructureSession[ 'content' ][ number ] ) {
+  switch( item.type ) {
     case STRUCTURE_SESSION:
     case STRUCTURE_SERIE:
     case STRUCTURE_ROTATION:

@@ -1,13 +1,16 @@
-import { StructureUpdater, Structure } from 'src/models/structures';
+import { IStructure, IStructureUpdater } from 'src/models';
 
-export function structureDoStart(structure: Structure) {
-  structure.state = 'ONGOING';
+export function structureDoStart( structure: IStructure ) {
+  structure.state = "ONGOING";
   structure.start = Date.now();
 }
-export function structureDoStop(structure: Structure) {
-  structure.state = 'DONE';
+export function structureDoStop( structure: IStructure ) {
+  structure.state = "DONE";
   structure.stop = Date.now();
 }
-export function structureDoUpdate(structure: Structure, updater: StructureUpdater) {
-  if (structure.id === updater.id) Object.assign(structure, updater);
+export function structureDoUpdate(
+  structure: IStructure,
+  updater: IStructureUpdater,
+) {
+  if( structure.id === updater.id ) { Object.assign( structure, updater ); }
 }

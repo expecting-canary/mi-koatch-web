@@ -1,6 +1,6 @@
-import { ExerciceData, ID, StructureBase, STRUCTURE_ROTATION } from 'src/models';
+import { ExerciceData, ID, IStructureBase, STRUCTURE_ROTATION } from 'src/models';
 
-export interface StructureRotationData {
+export interface IStructureRotationData {
   type: typeof STRUCTURE_ROTATION;
 
   content: ExerciceData[];
@@ -11,6 +11,6 @@ export interface StructureRotationData {
   };
 }
 
-export type StructureRotationResult = [[ID, number][], number][];
+export type IStructureRotationResult = Array<[ Array<[ ID, number ]>, number ]>;
 
-export type StructureRotation = StructureRotationData & StructureBase<StructureRotationResult>;
+export type IStructureRotation = IStructureRotationData & IStructureBase<IStructureRotationResult>;

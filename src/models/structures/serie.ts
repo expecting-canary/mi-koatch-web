@@ -1,12 +1,12 @@
-import { ExerciceData, ID, StructureBase, STRUCTURE_SERIE } from 'src/models';
+import { ExerciceData, ID, IStructureBase, STRUCTURE_SERIE } from 'src/models';
 
-export interface StructureSerieData {
+export interface IStructureSerieData {
   type: typeof STRUCTURE_SERIE;
   content: ExerciceData;
   series: number;
   rest: number;
 }
 
-export type StructureSerieResult = [ID, number][];
+export type IStructureSerieResult = Array<[ ID, number ]>;
 
-export type StructureSerie = StructureSerieData & StructureBase<StructureSerieResult>;
+export type IStructureSerie = IStructureSerieData & IStructureBase<IStructureSerieResult>;

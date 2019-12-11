@@ -1,7 +1,7 @@
 import { Exercice } from './exercices';
-import { Structure } from './structures';
+import { IStructure } from './structures';
 
-export interface State {
+export interface IState {
   exercices: Exercice[];
-  structures: Structure[];
+  structures: IStructure[];
 }

@@ -1,60 +1,67 @@
-import { Dispatch } from 'redux';
 import {
   ID,
-  State,
-  StructureData,
+  IStructure,
+  IStructureData,
+  Progress,
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
-  StructureState
+  Thunk,
 } from 'src/models';
 import {
   structureActionAdd,
-  structureActionStart,
   structureCreate,
   structureSerieThunkStart,
-  structureSessionThunkStart
+  structureSessionThunkStart,
 } from 'src/state';
 import { find } from 'src/util/list';
 
-export function structureThunkCreate(data: StructureData, start = false) {
-  return function(dispatch: Dispatch, getState: () => State) {
-    const structure = structureCreate(data);
-    dispatch(structureActionAdd(structure));
-    if (start) {
-      structureThunkStart(structure.id)(dispatch, getState);
+export function structureThunkCreate(
+  data: IStructureData,
+  start = false,
+): Thunk<IStructure> {
+
+  return function( dispatch ) {
+    const structure = structureCreate( data )
+    dispatch( structureActionAdd( structure ) )
+    if( start ) {
+      dispatch( structureThunkStart( structure.id ) )
     }
-    return structure;
-  };
+    return structure
+  }
 }
 
-export function structureThunkStart(id: ID) {
-  return function(dispatch: Dispatch, getState: () => State) {
-    const structure = find(getState().structures, id);
-    switch (structure.type) {
+export function structureThunkStart(
+  id: ID,
+): Thunk<Progress> {
+
+  return function( dispatch, getState ) {
+    const structure = find( getState().structures, id )
+    switch( structure.type ) {
       case STRUCTURE_SESSION:
-        return structureSessionThunkStart(structure)(dispatch, getState);
+        return dispatch( structureSessionThunkStart( structure ) )
       case STRUCTURE_SERIE:
-        return structureSerieThunkStart(structure)(dispatch);
+        return dispatch( structureSerieThunkStart( structure ) )
       case STRUCTURE_ROTATION:
-        break;
+        break
     }
-  };
+    return 'TODO'
+  }
 }
 
-export function structureThunkNext(id: ID) {
-  return function(dispatch: Dispatch, getState: () => State): StructureState {
-    const structure = find(getState().structures, id);
-    switch (structure.type) {
+export function structureThunkNext(
+  id: ID,
+): Thunk<Progress> {
+
+  return function( dispatch, getState ) {
+    const structure = find( getState().structures, id )
+    switch( structure.type ) {
       case STRUCTURE_SESSION:
-        structureSessionThunkStart(structure)(dispatch, getState);
-        break;
+        return dispatch( structureSessionThunkStart( structure ) )
       case STRUCTURE_SERIE:
-        structureSerieThunkStart(structure)(dispatch);
-        break;
+        return dispatch( structureSerieThunkStart( structure ) )
       case STRUCTURE_ROTATION:
-        break;
+        return 'DONE'
     }
-    return 'TODO';
-  };
+  }
 }

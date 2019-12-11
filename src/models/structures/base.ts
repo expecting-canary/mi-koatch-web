@@ -1,11 +1,9 @@
-import { ID } from 'src/models';
+import { ID, Progress } from 'src/models';
 
-export type StructureState = 'TODO' | 'ONGOING' | 'DONE';
-
-export interface StructureBase<Result extends any[] = []> {
+export interface IStructureBase<Result extends any[] = []> {
   id: ID;
 
-  state: StructureState;
+  state: Progress;
 
   level: number;
 

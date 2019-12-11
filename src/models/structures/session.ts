@@ -1,10 +1,10 @@
-import { ExerciceData, ID, StructureBase, StructureData, STRUCTURE_SESSION } from 'src/models';
+import { ExerciceData, ID, IStructureBase, IStructureData, STRUCTURE_SESSION } from 'src/models';
 
-export interface StructureSessionData {
+export interface IStructureSessionData {
   type: typeof STRUCTURE_SESSION;
-  content: (ExerciceData | StructureData)[];
+  content: Array<ExerciceData | IStructureData>;
 }
 
-export type StructureSessionResult = ID[];
+export type IStructureSessionResult = ID[];
 
-export type StructureSession = StructureSessionData & StructureBase<StructureSessionResult>;
+export type IStructureSession = IStructureSessionData & IStructureBase<IStructureSessionResult>;

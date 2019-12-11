@@ -1,10 +1,8 @@
-import { ID } from 'src/models';
+import { ID, Progress } from 'src/models';
 
-export type ExerciceState = 'TODO' | 'ONGOING' | 'DONE';
-
-export interface ExerciceBase {
+export interface IExerciceBase {
   id: ID;
-  state: ExerciceState;
+  state: Progress;
   start: number;
   stop: number;
 }

@@ -1,9 +1,9 @@
-import { ExerciceBase, EXERCICE_RUNNING } from 'src/models';
+import { EXERCICE_RUNNING, IExerciceBase } from 'src/models';
 
-export interface ExerciceRunningData {
+export interface IExerciceRunningData {
   type: typeof EXERCICE_RUNNING;
   distance?: number;
   speed?: number;
 }
 
-export type ExerciceRunning = ExerciceRunningData & ExerciceBase;
+export type IExerciceRunning = IExerciceRunningData & IExerciceBase;
