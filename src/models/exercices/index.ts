@@ -1,11 +1,11 @@
-import { IExerciceRunning, IExerciceRunningData } from './running';
-import { IExerciceWorkout, IExerciceWorkoutData } from './workout';
+import { IExerciceRunning, IExerciceRunningData } from './running'
+import { IExerciceWorkout, IExerciceWorkoutData } from './workout'
 
-export type ExerciceData = IExerciceRunningData | IExerciceWorkoutData;
+export type IExerciceData = IExerciceRunningData | IExerciceWorkoutData;
 
-export type Exercice = IExerciceRunning | IExerciceWorkout;
+export type IExercice = IExerciceRunning | IExerciceWorkout;
 
-export type ExerciceUpdater = Partial<Exercice> & Pick<Exercice, 'id'>;
+export type IExerciceUpdater = Partial<IExercice> & Pick<IExercice, 'id'>;
 
 export * from './base';
 export * from './running';

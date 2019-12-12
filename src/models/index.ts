@@ -5,3 +5,4 @@ export * from './types';
 export * from './id';
 export * from './thunk';
 export * from './progress';
+export * from './selected';

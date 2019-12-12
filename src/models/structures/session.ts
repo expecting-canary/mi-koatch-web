@@ -1,8 +1,8 @@
-import { ExerciceData, ID, IStructureBase, IStructureData, STRUCTURE_SESSION } from 'src/models';
+import { ID, IExerciceData, IStructureBase, IStructureData, STRUCTURE_SESSION } from 'src/models'
 
 export interface IStructureSessionData {
   type: typeof STRUCTURE_SESSION;
-  content: Array<ExerciceData | IStructureData>;
+  content: Array<IExerciceData | IStructureData>;
 }
 
 export type IStructureSessionResult = ID[];

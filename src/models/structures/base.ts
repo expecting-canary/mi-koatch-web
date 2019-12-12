@@ -1,16 +1,18 @@
-import { ID, Progress } from 'src/models';
+import { ID, Progress } from 'src/models'
 
 export interface IStructureBase<Result extends any[] = []> {
-  id: ID;
+  id: ID
 
-  state: Progress;
+  state: Progress
 
-  level: number;
+  level: number
 
-  name: string;
+  start: number
+  stop: number
 
-  start: number;
-  stop: number;
+  result: Result
+}
 
-  result: Result;
+export interface IStructureDataBase {
+  name: string
 }

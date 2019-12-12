@@ -1,11 +1,11 @@
-import { createAction } from '@reduxjs/toolkit';
-import { Exercice, ExerciceUpdater, ID } from 'src/models';
+import { createAction } from '@reduxjs/toolkit'
+import { ID, IExercice, IExerciceUpdater } from 'src/models'
 
-import { EXERCICE_ADD, EXERCICE_START, EXERCICE_STOP, EXERCICE_UPDATE } from '../action';
+import { EXERCICE_ADD, EXERCICE_START, EXERCICE_STOP, EXERCICE_UPDATE } from '../action'
 
 export const exerciceActionAdd = createAction(
   EXERCICE_ADD,
-  ( exercice: Exercice | Exercice[] ) => ( { payload: exercice } ),
+  ( exercice: IExercice | IExercice[] ) => ( { payload: exercice } ),
 );
 export const exerciceActionStart = createAction(
   EXERCICE_START,
@@ -17,5 +17,5 @@ export const exerciceActionStop = createAction(
 );
 export const exerciceActionUpdate = createAction(
   EXERCICE_UPDATE,
-  ( id: ID, values: ExerciceUpdater ) => ( { payload: { id, values } } ),
+  ( id: ID, values: IExerciceUpdater ) => ( { payload: { id, values } } ),
 );

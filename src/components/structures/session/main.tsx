@@ -1,17 +1,18 @@
 import {
   Card,
   CardContent,
-  CardHeader,
   Divider,
+  Grid,
   IconButton,
   List,
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
+  ListSubheader,
   Typography,
-} from '@material-ui/core';
-import { Add, Edit } from '@material-ui/icons';
-import React from 'react';
+} from '@material-ui/core'
+import { Add, Edit } from '@material-ui/icons'
+import React from 'react'
 import {
   EXERCICE_RUNNING,
   EXERCICE_WORKOUT,
@@ -19,9 +20,11 @@ import {
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
-} from 'src/models';
+} from 'src/models'
 
-interface IStructureSessionMainProps { session: IStructureSession }
+interface IStructureSessionMainProps {
+  session: IStructureSession
+}
 
 export function StructureSessionMain( { session }: IStructureSessionMainProps ) {
   return (
@@ -30,36 +33,37 @@ export function StructureSessionMain( { session }: IStructureSessionMainProps ) 
         <Typography variant="h4">Session</Typography>
       </CardContent>
       <Divider />
-      <CardHeader action={<AddButton />} title="Session" />
-      <MapContent content={session.content} />
-      <Divider />
       <MapContent content={session.content} />
     </Card>
-  );
-}
-
-function AddButton() {
-  return (
-    <IconButton>
-      <Add />
-    </IconButton>
-  );
+  )
 }
 
 function MapContent( { content }: { content: IStructureSession[ 'content' ] } ) {
-  const listItems = content.map( ( item, index ) => {
-    return (
-      <ListItem key={index}>
-        <ListItemText primary={buildContentItem( item )} />
-        <ListItemSecondaryAction>
-          <IconButton edge="end" aria-label="comments">
-            <Edit />
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
-    );
-  } );
-  return <List disablePadding >{listItems}</List>;
+  const subHeader = (
+    <ListSubheader>
+      <Grid container direction="row" justify="space-between">
+        Content
+        <IconButton>
+          <Add />
+        </IconButton>
+      </Grid>
+    </ListSubheader>
+  )
+  const listItems = content.map( ( item, index ) => (
+    <ListItem button key={index}>
+      <ListItemText primary={buildContentItem( item )} />
+      <ListItemSecondaryAction>
+        <IconButton edge="end" aria-label="edit">
+          <Edit />
+        </IconButton>
+      </ListItemSecondaryAction>
+    </ListItem>
+  ) )
+  return (
+    <List disablePadding subheader={subHeader}>
+      {listItems}
+    </List>
+  )
 }
 
 function buildContentItem( item: IStructureSession[ 'content' ][ number ] ) {
@@ -67,9 +71,9 @@ function buildContentItem( item: IStructureSession[ 'content' ][ number ] ) {
     case STRUCTURE_SESSION:
     case STRUCTURE_SERIE:
     case STRUCTURE_ROTATION:
-      return 'Structure';
+      return 'Structure'
     case EXERCICE_RUNNING:
     case EXERCICE_WORKOUT:
-      return 'Exercice';
+      return 'Exercice'
   }
 }

@@ -1,8 +1,8 @@
-import { ExerciceData, ID, IStructureBase, STRUCTURE_SERIE } from 'src/models';
+import { ID, IExerciceData, IStructureBase, STRUCTURE_SERIE } from 'src/models'
 
 export interface IStructureSerieData {
   type: typeof STRUCTURE_SERIE;
-  content: ExerciceData;
+  content: IExerciceData;
   series: number;
   rest: number;
 }

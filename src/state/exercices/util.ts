@@ -1,8 +1,19 @@
-import { Exercice, ExerciceData, IExerciceBase } from 'src/models';
-import uuid from 'uuid';
+import { EXERCICE, IExercice, IExerciceBase, IExerciceData } from 'src/models'
+import uuid from 'uuid'
 
-export function exerciceHasState( serie: Exercice, ...states: Array<Exercice[ 'state' ]> ) {
-  return states.includes( serie.state );
+export function isExercice( exercice: any ) {
+  return (
+    typeof exercice === 'object' &&
+    typeof exercice.type === 'string' &&
+    exercice.type.includes( EXERCICE )
+  )
+}
+
+export function exerciceHasState(
+  exercice: IExercice,
+  ...states: Array<IExercice[ 'state' ]>
+) {
+  return states.includes( exercice.state )
 }
 
 function exerciceCreateBase(): IExerciceBase {
@@ -11,9 +22,9 @@ function exerciceCreateBase(): IExerciceBase {
     state: 'TODO',
     start: 0,
     stop: 0,
-  };
+  }
 }
 
-export function exerciceCreate( data: ExerciceData ): Exercice {
-  return { ...exerciceCreateBase(), ...data };
+export function exerciceCreate( data: IExerciceData ): IExercice {
+  return { ...exerciceCreateBase(), ...data }
 }
