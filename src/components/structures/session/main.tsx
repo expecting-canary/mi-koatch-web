@@ -14,6 +14,12 @@ import {
 import { Add, Edit } from '@material-ui/icons'
 import React from 'react'
 import {
+  WeightBadgeIcon,
+  WeightButtonBadgeIcon,
+  WeightButtonIcon,
+  WeightIcon,
+} from 'src/blocks/icons'
+import {
   EXERCICE_RUNNING,
   EXERCICE_WORKOUT,
   IStructureSession,
@@ -31,6 +37,10 @@ export function StructureSessionMain( { session }: IStructureSessionMainProps ) 
     <Card>
       <CardContent>
         <Typography variant="h4">Session</Typography>
+        <WeightIcon />
+        <WeightBadgeIcon />
+        <WeightButtonIcon />
+        <WeightButtonBadgeIcon />
       </CardContent>
       <Divider />
       <MapContent content={session.content} />
