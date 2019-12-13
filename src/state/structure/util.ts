@@ -25,7 +25,6 @@ function structureCreateBase(): IStructureBase {
   return {
     id: uuid.v4(),
     state: 'TODO',
-    level: 0,
     start: 0,
     stop: 0,
     result: [],

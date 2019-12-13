@@ -1,5 +1,4 @@
-import { IExercice } from './exercices'
-import { IStructure } from './structures'
+import { IExercice, IStructure } from './items'
 
 export interface IState {
   exercices: IExercice[];

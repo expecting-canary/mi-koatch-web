@@ -1,6 +1,6 @@
-import { EXERCICE_WORKOUT, IExerciceBase } from 'src/models';
+import { EXERCICE_WORKOUT, IExerciceBase, IExerciceDataBase } from 'src/models'
 
-export interface IExerciceWorkoutData {
+export interface IExerciceWorkoutData extends IExerciceDataBase {
   type: typeof EXERCICE_WORKOUT;
   weight: number;
   repetitions: number;
