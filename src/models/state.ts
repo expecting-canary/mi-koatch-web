@@ -1,6 +1,7 @@
-import { IExercice, IStructure } from './items'
+import { IItem } from './items'
+import { IWorkout } from './workout'
 
 export interface IState {
-  exercices: IExercice[];
-  structures: IStructure[];
+  items: IItem[]
+  workout: IWorkout
 }

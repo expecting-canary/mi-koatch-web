@@ -4,7 +4,7 @@ import { IWorkout } from 'src/models'
 import { workoutActionSelect, workoutActionSet } from './actions'
 import { workoutDoSelect } from './handlers'
 
-export const selectedReducer = createReducer<IWorkout>(
+export const workoutReducer = createReducer<IWorkout>(
   { type: 'NONE' },
   builder =>
     builder

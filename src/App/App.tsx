@@ -2,14 +2,17 @@ import './App.scss'
 
 import { Container } from '@material-ui/core'
 import React from 'react'
-import { StructureSessionMain } from 'src/components'
-import { structureSessionTest } from 'src/models/playground'
+import { Provider } from 'react-redux'
+import { Workout } from 'src/components'
+import { store } from 'src/state'
 
 const App: React.FC = () => {
   return (
-    <Container maxWidth="sm">
-      <StructureSessionMain session={structureSessionTest} />
-    </Container>
+    <Provider store={store}>
+      <Container maxWidth="sm">
+        <Workout />
+      </Container>
+    </Provider>
   )
 }
 
