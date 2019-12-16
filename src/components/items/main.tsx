@@ -7,7 +7,7 @@ import {
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
-} from 'src/models'
+} from 'src/types'
 
 import { ExerciceWorkout } from './exercices'
 import { StructureSerie, StructureSession } from './structures'

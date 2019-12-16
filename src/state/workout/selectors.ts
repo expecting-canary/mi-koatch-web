@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit'
-import { IState } from 'src/models'
-import { itemSelector } from 'src/state'
+import { getItems } from 'src/state'
+import { IState } from 'src/types'
 import { find } from 'src/util'
 
 export function workoutSelector( state: IState ) {
@@ -8,7 +8,7 @@ export function workoutSelector( state: IState ) {
 }
 
 export const workoutSelectorStructure = createSelector(
-  [ workoutSelector, itemSelector ],
+  [ workoutSelector, getItems ],
   ( workout, items ) => {
     if( workout.type === 'STRUCTURE' ) {
       return find( items, workout.id )
@@ -18,7 +18,7 @@ export const workoutSelectorStructure = createSelector(
 )
 
 export const workoutSelectorExercice = createSelector(
-  [ workoutSelector, itemSelector ],
+  [ workoutSelector, getItems ],
   ( workout, items ) => {
     if( workout.type === 'EXERCICE' ) {
       return find( items, workout.id )

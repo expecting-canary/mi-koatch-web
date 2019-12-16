@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { IWorkout } from 'src/models'
+import { IWorkout } from 'src/types'
 
 import { workoutActionSelect, workoutActionSet } from './actions'
 import { workoutDoSelect } from './handlers'

@@ -1,21 +1,14 @@
 import { createSelector } from 'reselect'
-import { IState } from 'src/models'
+import { DATA, IData, IItem, IState, ITemplate, TEMPLATE } from 'src/types'
+import { hasTag } from 'src/util'
 
-import { itemHasState } from './util'
-
-export function itemSelector( state: IState ) {
+export function getItems( state: IState ): IItem[] {
   return state.items
 }
 
-export const itemSelectorTodo = createSelector(
-  itemSelector,
-  items => items.filter( item => itemHasState( item, 'TODO' ) ),
+export const getTemplates = createSelector( getItems, ( items ): ITemplate[] =>
+  items.filter( item => hasTag( item, TEMPLATE ) ) as any,
 )
-export const itemSelectorOngoing = createSelector(
-  itemSelector,
-  items => items.filter( item => itemHasState( item, 'ONGOING' ) ),
-)
-export const itemSelectorDone = createSelector(
-  itemSelector,
-  items => items.filter( item => itemHasState( item, 'DONE' ) ),
+export const getDatas = createSelector( getItems, ( items ): IData[] =>
+  items.filter( item => hasTag( item, DATA ) ) as any,
 )

@@ -1,14 +1,12 @@
 import { createAction } from '@reduxjs/toolkit'
+import { WORKOUT_SELECT, WORKOUT_SET } from 'src/state'
 import {
   ID,
   IWorkout,
   IWorkoutExercice,
   IWorkoutNone,
   IWorkoutStructure,
-} from 'src/models'
-import { WORKOUT_SET } from 'src/state'
-
-import { WORKOUT_SELECT } from '../action'
+} from 'src/types'
 
 export const workoutActionSet = createAction(
   WORKOUT_SET,

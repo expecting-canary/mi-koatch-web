@@ -6,7 +6,7 @@ import {
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
-} from 'src/models'
+} from 'src/types'
 
 export function switchStructureExercice<R1, R2>(
   data: IStructureData | IExerciceData,

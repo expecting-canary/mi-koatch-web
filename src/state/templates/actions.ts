@@ -1,16 +1,15 @@
 import { createAction } from '@reduxjs/toolkit'
-import { ITemplate, ITemplateUpdater } from 'src/models'
-import { TEMPLATE_ADD, TEMPLATE_UPDATE } from 'src/state'
+import { ITEM_ADD, ITEM_UPDATE } from 'src/state'
+import { ITemplate, ITemplateUpdater } from 'src/types'
 
-export const templateActionAdd = createAction(
-  TEMPLATE_ADD,
-  ( template: ITemplate | ITemplate[] ) => {
-    return { payload: template }
-  },
+export const itemAdd = createAction(
+  ITEM_ADD,
+  ( template: ITemplate | ITemplate[] ) => ( { payload: template } ),
 )
 
-export const templateActionUpdate = createAction(
-  TEMPLATE_UPDATE,
+export const itemUpdate = createAction(
+  ITEM_UPDATE,
   ( id: ITemplate[ 'id' ], values: ITemplateUpdater ) => {
     return { payload: { id, values } }
-  } )
+  },
+)

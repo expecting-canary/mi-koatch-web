@@ -42,7 +42,7 @@ export function NumberPicker( {
   return (
     <React.Fragment>
       {label && <FormHelperText>{label}</FormHelperText>}
-      <FormControl fullWidth>
+      <FormControl fullWidth >
         <Input
           type="number"
           value={'' + value}

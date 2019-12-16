@@ -3,40 +3,32 @@ import {
   EXERCICE_WORKOUT,
   IItem,
   IItemBase,
-  IItemData,
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
-} from 'src/models'
+  Types,
+} from 'src/types'
 import uuid from 'uuid'
 
-import { exerciceCreate } from './exercices'
-import { structureCreate } from './structures'
-
-export function itemHasState(
-  item: IItem,
-  ...states: Array<IItem[ 'state' ]>
-) {
-  return states.includes( item.state )
-}
+import { exerciceCreate } from './data/exercices'
+import { structureCreate } from './data/structures'
 
 export function itemCreateBase(): IItemBase {
   return {
     id: uuid.v4(),
-    state: 'TODO',
-    start: 0,
-    stop: 0,
+    tags: [],
+    name: '',
   }
 }
 
-export function itemCreate( data: IItemData ): IItem {
-  switch( data.type ) {
+export function itemCreate( type: Types ): IItem {
+  switch( type ) {
     case STRUCTURE_SESSION:
     case STRUCTURE_SERIE:
     case STRUCTURE_ROTATION:
-      return structureCreate( data )
+      return structureCreate( type )
     case EXERCICE_RUNNING:
     case EXERCICE_WORKOUT:
-      return exerciceCreate( data )
+      return exerciceCreate( type )
   }
 }

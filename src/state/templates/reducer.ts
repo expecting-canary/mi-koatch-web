@@ -1,16 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { ITemplate } from 'src/models'
+import { IItem } from 'src/types'
 import { add, find } from 'src/util/list'
 
-import { templateActionAdd, templateActionUpdate } from './actions'
-import { templateDoUpdate } from './handlers'
+import { itemAdd, itemUpdate } from './actions'
 
-export const templatesReducer = createReducer<ITemplate[]>( [], builder =>
+export const itemsReducer = createReducer<IItem[]>( [], builder =>
   builder
-    .addCase( templateActionAdd, ( state, { payload } ) => {
-      add( state, payload )
-    } )
-    .addCase( templateActionUpdate, ( state, { payload } ) => {
-      templateDoUpdate( find( state, payload.id ), payload.values )
+    .addCase( itemAdd, ( state, { payload } ) => { add( state, payload ) } )
+    .addCase( itemUpdate, ( state, { payload } ) => {
+      Object.assign( find( state, payload.id ), payload.values )
     } ),
 )

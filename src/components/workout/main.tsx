@@ -2,13 +2,13 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Item } from 'src/components'
 import { ContextProviderLevel } from 'src/contexts'
-import { IItem, IItemData } from 'src/models'
-import { itemSelector, workoutSelector } from 'src/state'
+import { getItems, workoutSelector } from 'src/state'
+import { IItem, IItemData } from 'src/types'
 import { find } from 'src/util'
 
 export function Workout() {
   const workout = useSelector( workoutSelector )
-  const items = useSelector( itemSelector )
+  const items = useSelector( getItems )
   switch( workout.type ) {
     case 'NONE':
       return <span>None</span>

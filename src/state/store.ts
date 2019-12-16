@@ -4,7 +4,7 @@ import {
   IStructureSession,
   IStructureSessionData,
   STRUCTURE,
-} from 'src/models'
+} from 'src/types'
 
 import { itemsReducer } from './items'
 import { workoutReducer } from './workout'

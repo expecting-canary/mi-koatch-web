@@ -1,4 +1,4 @@
-import { IWorkout } from 'src/models'
+import { IWorkout } from 'src/types'
 
 export function workoutDoSelect(
   workout: IWorkout,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { RepetitionsPicker, WeightPicker } from 'src/blocks'
-import { IExerciceWorkoutData } from 'src/models'
+import { IExerciceWorkoutData } from 'src/types'
 
 export function ExerciceWorkoutData( { data }: { data: IExerciceWorkoutData } ) {
   return (

@@ -1,42 +1,30 @@
 import {
   EXERCICE_RUNNING,
   EXERCICE_WORKOUT,
-  IItem,
-  IItemBase,
-  IItemData,
+  ITemplate,
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
-} from 'src/models'
+  Types,
+} from 'src/types'
 import uuid from 'uuid'
 
-import { exerciceCreate } from './exercices'
-import { structureCreate } from './structures'
+import { serieTemplateCreate } from './structures/serie'
+import { sessionTemplateCreate } from './structures/session'
 
-export function itemHasState(
-  item: IItem,
-  ...states: Array<IItem[ 'state' ]>
-) {
-  return states.includes( item.state )
+export function templateCreateBase( root?: true ) {
+  return root ? { id: uuid.v4(), name: '', root } : { id: uuid.v4(), name: '' }
 }
 
-export function itemCreateBase(): IItemBase {
-  return {
-    id: uuid.v4(),
-    state: 'TODO',
-    start: 0,
-    stop: 0,
-  }
-}
-
-export function itemCreate( data: IItemData ): IItem {
-  switch( data.type ) {
+export function templateCreate( type: Types, root?: true ): ITemplate {
+  switch( type ) {
     case STRUCTURE_SESSION:
+      return sessionTemplateCreate( root );
     case STRUCTURE_SERIE:
+      return serieTemplateCreate( root );
     case STRUCTURE_ROTATION:
-      return structureCreate( data )
     case EXERCICE_RUNNING:
     case EXERCICE_WORKOUT:
-      return exerciceCreate( data )
   }
+  return serieTemplateCreate( root );
 }

@@ -18,7 +18,7 @@ import {
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
-} from 'src/models'
+} from 'src/types'
 
 interface StructureSessionContentProps {
   content: IStructureSession[ 'content' ]
