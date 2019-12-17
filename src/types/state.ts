@@ -1,9 +1,7 @@
-import { ITemplate } from './item'
-import { IItem } from './items'
+import { IItem } from './item'
 import { IWorkout } from './workout'
 
 export interface IState {
   items: IItem[]
   workout: IWorkout
-  templates: ITemplate[]
 }

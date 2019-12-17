@@ -2,33 +2,26 @@ import {
   EXERCICE_RUNNING,
   EXERCICE_WORKOUT,
   ID,
-  Progress,
+  IProgress,
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
 } from 'src/types'
 
-export type Types =
+export type IItemType =
   | typeof STRUCTURE_SESSION
   | typeof STRUCTURE_SERIE
   | typeof STRUCTURE_ROTATION
   | typeof EXERCICE_WORKOUT
   | typeof EXERCICE_RUNNING
 
-export interface IItemBase {
+export interface IItemBase<Type extends IItemType> {
   id: ID
-  name: string
-}
-
-export interface ITemplateBase extends IItemBase {
-  type: Types
+  type: Type
   root?: true
-}
-
-export interface IDataBase extends IItemBase {
-  type: Types
-  template_id: ID
-  state: Progress
+  name: string
+  state: IProgress
+  creation: number
   start: number
   stop: number
 }

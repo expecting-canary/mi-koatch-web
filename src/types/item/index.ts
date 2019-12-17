@@ -1,33 +1,11 @@
-import {
-  IExerciceRunningData,
-  IExerciceRunningTemplate,
-  IExerciceWorkoutData,
-  IExerciceWorkoutTemplate,
-  IStructureSerieData,
-  IStructureSerieTemplate,
-  IStructureSessionData,
-  IStructureSessionTemplate,
-} from 'src/types'
+import { IExerciceWorkout, IStructureSerie, IStructureSession } from 'src/types'
 
-export type IData =
-  | IStructureSerieData
-  | IStructureSessionData
-  | IExerciceRunningData
-  | IExerciceWorkoutData
+export type IItem =
+  | IStructureSerie
+  | IStructureSession
+  | IExerciceWorkout
 
-export type ITemplate =
-  | IStructureSerieTemplate
-  | IStructureSessionTemplate
-  | IExerciceRunningTemplate
-  | IExerciceWorkoutTemplate
-
-export type IDataUpdater = Partial<IData>
-
-export type ITemplateUpdater = Partial<ITemplate>
-
-export type IItem = IData | ITemplate
-
-export type IItemUpdater = IDataUpdater | ITemplateUpdater
+export type IItemUpdater = Partial<IItem>
 
 export * from './exercice'
 export * from './structure'

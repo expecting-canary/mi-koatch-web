@@ -1,7 +1,13 @@
 import { itemUpdate } from 'src/state'
-import { ID, Progress, PROGRESS_DONE, PROGRESS_ONGOING, Thunk } from 'src/types'
+import {
+  ID,
+  IProgress,
+  PROGRESS_DONE,
+  PROGRESS_ONGOING,
+  Thunk,
+} from 'src/types'
 
-export function dataStart( id: ID ): Thunk<Progress> {
+export function dataStart( id: ID ): Thunk<IProgress> {
   return function( dispatch ) {
     dispatch( itemUpdate( id, {
       state: PROGRESS_ONGOING,
@@ -11,7 +17,7 @@ export function dataStart( id: ID ): Thunk<Progress> {
   }
 }
 
-export function dataStop( id: ID ): Thunk<Progress> {
+export function dataStop( id: ID ): Thunk<IProgress> {
   return function( dispatch ) {
     dispatch( itemUpdate( id, {
       state: PROGRESS_DONE,

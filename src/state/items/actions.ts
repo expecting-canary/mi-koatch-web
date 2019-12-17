@@ -1,8 +1,8 @@
 import { createAction } from '@reduxjs/toolkit'
 import {
+  createItem,
   ITEM_ADD,
   ITEM_UPDATE,
-  itemCreate,
   serieStart,
   sessionStart,
 } from 'src/state'
@@ -10,10 +10,10 @@ import {
   EXERCICE_RUNNING,
   EXERCICE_WORKOUT,
   ID,
-  IData,
   IItem,
+  IItemType,
   IItemUpdater,
-  Progress,
+  IProgress,
   PROGRESS_DONE,
   PROGRESS_ONGOING,
   PROGRESS_TODO,
@@ -24,35 +24,51 @@ import {
 } from 'src/types'
 import { find } from 'src/util'
 
-import { dataStart, dataStop } from './data/exercices/actions'
-
-export const itemAdd = createAction(
-  ITEM_ADD,
-  ( serie: IItem | IItem[] ) => {
-    return { payload: serie }
-  } )
+export const itemAdd = createAction( ITEM_ADD, ( serie: IItem | IItem[] ) => {
+  return { payload: serie }
+} )
 
 export const itemUpdate = createAction(
   ITEM_UPDATE,
   ( id: IItem[ 'id' ], values: IItemUpdater ) => {
     return { payload: { id, values } }
-  } )
+  },
+)
 
-export function itemThunkCreate(
-  data: IData,
-  start = false,
-): Thunk<IItem> {
+export function itemStart( id: ID ): Thunk<IProgress> {
   return function( dispatch ) {
-    const item = itemCreate( data )
+    dispatch(
+      itemUpdate( id, {
+        state: PROGRESS_ONGOING,
+        start: Date.now(),
+      } ),
+    )
+    return PROGRESS_ONGOING
+  }
+}
+
+export function itemStop( id: ID ): Thunk<IProgress> {
+  return dispatch => {
+    dispatch(
+      itemUpdate( id, {
+        state: PROGRESS_DONE,
+        stop: Date.now(),
+      } ),
+    )
+    return PROGRESS_DONE
+  }
+}
+
+export function itemCreate( data: IItemType | IItem, start = false ): Thunk<IItem> {
+  return dispatch => {
+    const item = createItem( data )
     dispatch( itemAdd( item ) )
-    if( start ) {
-      dispatch( itemThunkStart( item.id ) )
-    }
+    if( start ) { dispatch( itemThunkStart( item.id ) ) }
     return item
   }
 }
 
-export function itemThunkStart( id: ID ): Thunk<Progress> {
+export function itemThunkStart( id: ID ): Thunk<IProgress> {
   return function( dispatch, getState ) {
     const item = find( getState().items, id )
     switch( item.type ) {
@@ -63,16 +79,16 @@ export function itemThunkStart( id: ID ): Thunk<Progress> {
       case STRUCTURE_ROTATION:
         return PROGRESS_TODO
       case EXERCICE_RUNNING:
-        dispatch( dataStart( id ) )
+        dispatch( itemStart( id ) )
         return PROGRESS_ONGOING
       case EXERCICE_WORKOUT:
-        dispatch( dataStart( id ) )
+        dispatch( itemStart( id ) )
         return PROGRESS_ONGOING
     }
   }
 }
 
-export function itemThunkNext( id: ID ): Thunk<Progress> {
+export function itemThunkNext( id: ID ): Thunk<IProgress> {
   return function( dispatch, getState ) {
     const item = find( getState().items, id )
     switch( item.type ) {
@@ -83,11 +99,9 @@ export function itemThunkNext( id: ID ): Thunk<Progress> {
       case STRUCTURE_ROTATION:
         return PROGRESS_DONE
       case EXERCICE_RUNNING:
-        dispatch( dataStop( id ) )
-        return PROGRESS_DONE
+        return dispatch( itemStop( id ) )
       case EXERCICE_WORKOUT:
-        dispatch( dataStop( id ) )
-        return PROGRESS_DONE
+        return dispatch( itemStop( id ) )
     }
   }
 }

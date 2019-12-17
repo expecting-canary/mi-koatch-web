@@ -1,14 +1,8 @@
-import { ID, IDataBase, ITemplateBase, STRUCTURE_SERIE } from 'src/types'
+import { ID, IItemBase, STRUCTURE_SERIE } from 'src/types'
 
-interface IStructureSerieCommon<Content> {
-  type: typeof STRUCTURE_SERIE
+export interface IStructureSerie extends IItemBase<typeof STRUCTURE_SERIE> {
   rest: number
   series: number
-  content: Content
+  content: ID
+  results: Array<[ ID, number ]>,
 }
-
-export type IStructureSerieTemplate =
-  ITemplateBase & IStructureSerieCommon<ID>
-
-export type IStructureSerieData =
-  IDataBase & IStructureSerieCommon<Array<[ ID, number ]>>

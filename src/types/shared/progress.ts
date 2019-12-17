@@ -1,3 +1,14 @@
-import { ABORTED, DONE, ONGOING, PAUSED, TODO } from 'src/types'
+import {
+  PROGRESS_ABORTED,
+  PROGRESS_DONE,
+  PROGRESS_ONGOING,
+  PROGRESS_PAUSED,
+  PROGRESS_TODO,
+} from 'src/types'
 
-export type Progress = typeof TODO | typeof ONGOING | typeof PAUSED | typeof ABORTED | typeof DONE
+export type IProgress =
+  | typeof PROGRESS_TODO
+  | typeof PROGRESS_ONGOING
+  | typeof PROGRESS_PAUSED
+  | typeof PROGRESS_ABORTED
+  | typeof PROGRESS_DONE
