@@ -16,51 +16,46 @@ import { createItem, serieStart, sessionStart } from 'src/state'
 import { ID, IItem, IItemType, IItemUpdater, IProgress, Thunk } from 'src/types'
 import { find } from 'src/util'
 
-export const itemAdd = createAction( ITEM_ADD, ( item: IItem | IItem[] ) => {
-  return { payload: item }
-} )
+import { itemDoStart, itemDoStop } from './handlers'
+
+export const itemAdd = createAction( ITEM_ADD, ( item: IItem | IItem[] ) => ( {
+  payload: item,
+} ) )
 
 export const itemUpdate = createAction(
   ITEM_UPDATE,
-  ( id: IItem[ 'id' ], values: IItemUpdater | ( ( item: IItem ) => IItem ) ) => {
-    return { payload: { id, values } }
-  },
+  ( id: IItem[ 'id' ], values: IItemUpdater | ( ( item: IItem ) => void ) ) => ( {
+    payload: { id, values },
+  } ),
 )
 
-export const itemDelete = createAction( ITEM_DELETE, ( item: IItem ) => {
-  return { payload: item.id }
-} )
+export const itemDelete = createAction( ITEM_DELETE, ( item: IItem ) => ( {
+  payload: item.id,
+} ) )
+
+export const itemCreate = (
+  data: IItemType | IItem,
+  start = false,
+): Thunk<IItem> => dispatch => {
+  const item = createItem( data )
+  dispatch( itemAdd( item ) )
+  if( start ) {
+    dispatch( itemThunkStart( item.id ) )
+  }
+  return item
+}
 
 export function itemStart( id: ID ): Thunk<IProgress> {
   return function( dispatch ) {
-    dispatch(
-      itemUpdate( id, {
-        state: PROGRESS_ONGOING,
-        start: Date.now(),
-      } ),
-    )
+    dispatch( itemUpdate( id, itemDoStart ) )
     return PROGRESS_ONGOING
   }
 }
 
 export function itemStop( id: ID ): Thunk<IProgress> {
   return dispatch => {
-    dispatch(
-      itemUpdate( id, {
-        state: PROGRESS_DONE,
-        stop: Date.now(),
-      } ),
-    )
+    dispatch( itemUpdate( id, itemDoStop ) )
     return PROGRESS_DONE
-  }
-}
-
-export function itemCreate( data: IItemType | IItem, start = false ): Thunk<IItem> {
-  return dispatch => {
-    const item = createItem( data )
-    dispatch( itemAdd( item ) )
-    if( start ) { dispatch( itemThunkStart( item.id ) ) }
-    return item
   }
 }
 
