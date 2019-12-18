@@ -1,6 +1,4 @@
-export * from './action'
 export * from './hooks'
 export * from './items'
-export * from './util'
 export * from './workout'
 export * from './store'

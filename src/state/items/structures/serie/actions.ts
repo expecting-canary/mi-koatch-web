@@ -1,11 +1,6 @@
+import { PROGRESS_DONE, PROGRESS_ONGOING } from 'src/constants'
 import { itemCreate, itemStart, itemStop, itemUpdate } from 'src/state'
-import {
-  IProgress,
-  IStructureSerie,
-  PROGRESS_DONE,
-  PROGRESS_ONGOING,
-  Thunk,
-} from 'src/types'
+import { IProgress, IStructureSerie, Thunk } from 'src/types'
 import { find } from 'src/util'
 
 export function serieStart( serie: IStructureSerie ): Thunk<IProgress> {
@@ -17,7 +12,6 @@ export function serieStart( serie: IStructureSerie ): Thunk<IProgress> {
 
 export function serieNextStep( serie: IStructureSerie ): Thunk<IProgress> {
   return function( dispatch, getState ) {
-    const template = find( getState().items, serie.content )
     const { id, results, content, series } = serie
     const index = results.length - 1
 
@@ -39,7 +33,8 @@ export function serieNextStep( serie: IStructureSerie ): Thunk<IProgress> {
 
     if( content.length < series ) {
       // If item not completed, start next serie
-      const item = dispatch( itemCreate( content ) )
+      const template = find( getState().items, serie.content )
+      const item = dispatch( itemCreate( template, true ) )
       dispatch( itemUpdate( id, { results: [ ...results, [ item.id, 0 ] ] } ) )
       return PROGRESS_ONGOING
     } else {

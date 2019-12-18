@@ -1,39 +1,35 @@
 import { createAction } from '@reduxjs/toolkit'
 import {
-  createItem,
-  ITEM_ADD,
-  ITEM_UPDATE,
-  serieStart,
-  sessionStart,
-} from 'src/state'
-import {
   EXERCICE_RUNNING,
   EXERCICE_WORKOUT,
-  ID,
-  IItem,
-  IItemType,
-  IItemUpdater,
-  IProgress,
+  ITEM_ADD,
+  ITEM_DELETE,
+  ITEM_UPDATE,
   PROGRESS_DONE,
   PROGRESS_ONGOING,
   PROGRESS_TODO,
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
-  Thunk,
-} from 'src/types'
+} from 'src/constants'
+import { createItem, serieStart, sessionStart } from 'src/state'
+import { ID, IItem, IItemType, IItemUpdater, IProgress, Thunk } from 'src/types'
 import { find } from 'src/util'
 
-export const itemAdd = createAction( ITEM_ADD, ( serie: IItem | IItem[] ) => {
-  return { payload: serie }
+export const itemAdd = createAction( ITEM_ADD, ( item: IItem | IItem[] ) => {
+  return { payload: item }
 } )
 
 export const itemUpdate = createAction(
   ITEM_UPDATE,
-  ( id: IItem[ 'id' ], values: IItemUpdater ) => {
+  ( id: IItem[ 'id' ], values: IItemUpdater | ( ( item: IItem ) => IItem ) ) => {
     return { payload: { id, values } }
   },
 )
+
+export const itemDelete = createAction( ITEM_DELETE, ( item: IItem ) => {
+  return { payload: item.id }
+} )
 
 export function itemStart( id: ID ): Thunk<IProgress> {
   return function( dispatch ) {

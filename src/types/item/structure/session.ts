@@ -1,4 +1,5 @@
-import { ID, IItemBase, STRUCTURE_SESSION } from 'src/types'
+import { STRUCTURE_SESSION } from 'src/constants'
+import { ID, IItemBase } from 'src/types'
 
 export interface IStructureSession extends IItemBase<typeof STRUCTURE_SESSION> {
   content: ID[]

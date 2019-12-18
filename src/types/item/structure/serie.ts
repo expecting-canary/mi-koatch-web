@@ -1,4 +1,5 @@
-import { ID, IItemBase, STRUCTURE_SERIE } from 'src/types'
+import { STRUCTURE_SERIE } from 'src/constants'
+import { ID, IItemBase } from 'src/types'
 
 export interface IStructureSerie extends IItemBase<typeof STRUCTURE_SERIE> {
   rest: number

@@ -1,11 +1,7 @@
-import { EXERCICE_WORKOUT, IDataBase, ITemplateBase } from 'src/types'
+import { EXERCICE_RUNNING } from 'src/constants'
+import { IItemBase } from 'src/types'
 
-interface IExerciceRunningCommon {
-  type: typeof EXERCICE_WORKOUT
+export interface IExerciceRunning extends IItemBase<typeof EXERCICE_RUNNING> {
   distance?: number
   speed?: number
 }
-
-export type IExerciceRunningTemplate = ITemplateBase & IExerciceRunningCommon
-
-export type IExerciceRunningData = IDataBase & IExerciceRunningCommon

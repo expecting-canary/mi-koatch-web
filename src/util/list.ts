@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 export function add<State extends { id: ID }, ID>(
   state: State[],
   data: State | State[],
@@ -18,4 +20,8 @@ export function find<State extends { id: ID }, ID>( state: State[], id: ID ) {
 
 export function findOpt<State extends { id: ID }, ID>( state: State[], id: ID ) {
   return state.find( item => item.id === id )
+}
+
+export function remove<State extends { id: ID }, ID>( state: State[], id: ID ) {
+  return _.remove( state, item => item.id === id )
 }

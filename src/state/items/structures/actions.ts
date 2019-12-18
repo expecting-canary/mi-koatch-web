@@ -1,24 +1,22 @@
-import { structureSerieThunkStart, structureSessionThunkStart } from 'src/state'
 import {
-  ID,
-  IProgress,
+  PROGRESS_DONE,
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
-  Thunk,
-} from 'src/types'
-import { find } from 'src/util'
+} from 'src/constants'
+import { getItem, serieStart } from 'src/state'
+import { ID, IProgress, Thunk } from 'src/types'
 
 export function structureThunkNext( id: ID ): Thunk<IProgress> {
   return function( dispatch, getState ) {
-    const item = find( getState().items, id )
+    const item = getItem( getState(), id )
     switch( item.type ) {
       case STRUCTURE_SESSION:
-        return dispatch( structureSessionThunkStart( item ) )
+        return dispatch( serieStart( item ) )
       case STRUCTURE_SERIE:
-        return dispatch( structureSerieThunkStart( item ) )
+        return dispatch( serieStart( item ) )
       case STRUCTURE_ROTATION:
-        return 'DONE'
+        return PROGRESS_DONE
     }
     throw new Error()
   }

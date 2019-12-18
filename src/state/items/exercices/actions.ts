@@ -1,11 +1,6 @@
+import { PROGRESS_DONE, PROGRESS_ONGOING } from 'src/constants'
 import { itemUpdate } from 'src/state'
-import {
-  ID,
-  IProgress,
-  PROGRESS_DONE,
-  PROGRESS_ONGOING,
-  Thunk,
-} from 'src/types'
+import { ID, IProgress, Thunk } from 'src/types'
 
 export function dataStart( id: ID ): Thunk<IProgress> {
   return function( dispatch ) {

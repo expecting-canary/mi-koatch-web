@@ -1,12 +1,11 @@
 import {
   EXERCICE_RUNNING,
   EXERCICE_WORKOUT,
-  ID,
-  IProgress,
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
-} from 'src/types'
+} from 'src/constants'
+import { ID, IProgress } from 'src/types'
 
 export type IItemType =
   | typeof STRUCTURE_SESSION

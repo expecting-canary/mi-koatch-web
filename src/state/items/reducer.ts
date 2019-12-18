@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { IItem } from 'src/types'
-import { add, find } from 'src/util/list'
+import { add, find, remove } from 'src/util/list'
 
-import { itemAdd, itemUpdate } from './actions'
+import { itemAdd, itemDelete, itemUpdate } from './actions'
 import { itemDoUpdate } from './handlers'
 
 export const itemsReducer = createReducer<IItem[]>( [], builder =>
@@ -11,6 +11,11 @@ export const itemsReducer = createReducer<IItem[]>( [], builder =>
       add( state, payload )
     } )
     .addCase( itemUpdate, ( state, { payload } ) => {
-      itemDoUpdate( find( state, payload.id ), payload.values )
+      typeof payload.values === 'function'
+        ? payload.values( find( state, payload.id ) )
+        : itemDoUpdate( find( state, payload.id ), payload.values )
+    } )
+    .addCase( itemDelete, ( state, { payload } ) => {
+      remove( state, payload )
     } ),
 )

@@ -1,8 +1,8 @@
-import { IStructureSerie, STRUCTURE_SERIE } from 'src/types'
+import { STRUCTURE_SERIE } from 'src/constants'
+import { createBase } from 'src/state'
+import { IStructureSerie } from 'src/types'
 
-import { createBase } from '../../util'
-
-export function createStructureSerie(
+export function createSerie(
   template: Partial<IStructureSerie> = {},
 ): IStructureSerie {
   return {

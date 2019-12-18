@@ -1,5 +1,4 @@
 export * from './state'
-export * from './types'
 export * from './shared'
 export * from './workout'
 export * from './item'

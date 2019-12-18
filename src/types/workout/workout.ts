@@ -1,5 +1,5 @@
+import { EXERCICE, STRUCTURE } from '../../constants/types'
 import { ID } from '../shared/id'
-import { EXERCICE, STRUCTURE } from '../types'
 
 export interface IWorkoutNone {
   type: 'NONE'
