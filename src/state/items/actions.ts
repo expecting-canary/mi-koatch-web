@@ -12,11 +12,13 @@ import {
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
 } from 'src/constants'
-import { createItem, serieStart, sessionStart } from 'src/state'
+import { itemCreate, serieStart, sessionStart } from 'src/state'
 import { ID, IItem, IItemType, IItemUpdater, IProgress, Thunk } from 'src/types'
 import { find } from 'src/util'
 
 import { itemDoStart, itemDoStop } from './handlers'
+
+///
 
 export const itemAdd = createAction( ITEM_ADD, ( item: IItem | IItem[] ) => ( {
   payload: item,
@@ -33,16 +35,17 @@ export const itemDelete = createAction( ITEM_DELETE, ( item: IItem ) => ( {
   payload: item.id,
 } ) )
 
-export const itemCreate = (
-  data: IItemType | IItem,
-  start = false,
-): Thunk<IItem> => dispatch => {
-  const item = createItem( data )
-  dispatch( itemAdd( item ) )
-  if( start ) {
-    dispatch( itemThunkStart( item.id ) )
+///
+
+export function itemActionCreate( data: IItemType | IItem, start = false ): Thunk<IItem> {
+  return dispatch => {
+    const item = itemCreate( data )
+    dispatch( itemAdd( item ) )
+    if( start ) {
+      dispatch( itemActionStart( item.id ) )
+    }
+    return item
   }
-  return item
 }
 
 export function itemStart( id: ID ): Thunk<IProgress> {
@@ -59,7 +62,7 @@ export function itemStop( id: ID ): Thunk<IProgress> {
   }
 }
 
-export function itemThunkStart( id: ID ): Thunk<IProgress> {
+export function itemActionStart( id: ID ): Thunk<IProgress> {
   return function( dispatch, getState ) {
     const item = find( getState().items, id )
     switch( item.type ) {
@@ -79,7 +82,7 @@ export function itemThunkStart( id: ID ): Thunk<IProgress> {
   }
 }
 
-export function itemThunkNext( id: ID ): Thunk<IProgress> {
+export function itemActionNext( id: ID ): Thunk<IProgress> {
   return function( dispatch, getState ) {
     const item = find( getState().items, id )
     switch( item.type ) {

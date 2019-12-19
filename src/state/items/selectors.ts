@@ -3,7 +3,7 @@ import { PROGRESS_DONE, PROGRESS_ONGOING, PROGRESS_TODO } from 'src/constants'
 import { ID, IItem, IState } from 'src/types'
 import { find } from 'src/util'
 
-import { hasState } from './util'
+import { itemHasState } from './util'
 
 export function getItems( state: IState ): IItem[] {
   return state.items
@@ -13,11 +13,11 @@ export function getItem( state: IState, id: ID ) {
 }
 
 export const getTodos = createSelector( getItems, items =>
-  items.filter( item => hasState( item, PROGRESS_TODO ) ),
+  items.filter( item => itemHasState( item, PROGRESS_TODO ) ),
 )
 export const getOngoing = createSelector( getItems, ( items ): IData[] =>
-  items.filter( item => hasState( item, PROGRESS_ONGOING ) ),
+  items.filter( item => itemHasState( item, PROGRESS_ONGOING ) ),
 )
 export const getDones = createSelector( getItems, ( items ): IData[] =>
-  items.filter( item => hasState( item, PROGRESS_DONE ) ),
+  items.filter( item => itemHasState( item, PROGRESS_DONE ) ),
 )

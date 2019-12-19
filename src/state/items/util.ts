@@ -10,11 +10,11 @@ import { createSerie, exerciceCreate } from 'src/state'
 import { IItem, IItemBase, IItemType, IProgress } from 'src/types'
 import uuid from 'uuid'
 
-export function hasState( structure: IItem, ...states: IProgress[] ) {
+export function itemHasState( structure: IItem, ...states: IProgress[] ) {
   return states.includes( structure.state )
 }
 
-export function createBase<Type extends IItemType>(
+export function itemCreateBase<Type extends IItemType>(
   type: Type,
   name?: string,
 ): IItemBase<Type> {
@@ -29,13 +29,13 @@ export function createBase<Type extends IItemType>(
   }
 }
 
-export function createItem( data: IItemType | IItem ): IItem {
+export function itemCreate( data: IItemType | IItem ): IItem {
   const template = ( typeof data === 'string' ? { type: data } : data ) as IItem
   switch( template.type ) {
     case STRUCTURE_SESSION:
-      break;
+      break
     case STRUCTURE_SERIE:
-      return createSerie( template );
+      return createSerie( template )
     case STRUCTURE_ROTATION:
       return structureCreate( template.type )
     case EXERCICE_RUNNING:

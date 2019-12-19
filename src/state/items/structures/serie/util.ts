@@ -1,5 +1,5 @@
 import { STRUCTURE_SERIE } from 'src/constants'
-import { createBase } from 'src/state'
+import { itemCreateBase } from 'src/state'
 import { IStructureSerie } from 'src/types'
 
 export function createSerie(
@@ -10,7 +10,7 @@ export function createSerie(
     series: 4,
     content: '',
     ...template,
-    ...createBase( STRUCTURE_SERIE, template.name ),
+    ...itemCreateBase( STRUCTURE_SERIE, template.name ),
     results: [],
   }
 }

@@ -1,5 +1,5 @@
 import {
-  itemCreate as itemCreate,
+  itemActionCreate as itemActionCreate,
   itemStart,
   itemStop,
   itemThunkNext,
@@ -42,7 +42,7 @@ export function sessionNext( session: Data ): Thunk<IProgress> {
 function contentStart( session: Data, index: number ): Thunk<IProgress> {
   return ( dispatch, getState ) => {
     const template = find( getState().items, session.content[ index ] )
-    const item = dispatch( itemCreate( template, true ) )
+    const item = dispatch( itemActionCreate( template, true ) )
     const content = [ ...session.content, item.id ]
     dispatch( itemUpdate( session.id, { content } ) )
     return PROGRESS_ONGOING

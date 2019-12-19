@@ -1,5 +1,5 @@
 import { PROGRESS_DONE, PROGRESS_ONGOING } from 'src/constants'
-import { itemCreate, itemStart, itemStop, itemUpdate } from 'src/state'
+import { itemActionCreate, itemStart, itemStop, itemUpdate } from 'src/state'
 import { IProgress, IStructureSerie, Thunk } from 'src/types'
 import { find } from 'src/util'
 
@@ -34,7 +34,7 @@ export function serieNextStep( serie: IStructureSerie ): Thunk<IProgress> {
     if( content.length < series ) {
       // If item not completed, start next serie
       const template = find( getState().items, serie.content )
-      const item = dispatch( itemCreate( template, true ) )
+      const item = dispatch( itemActionCreate( template, true ) )
       dispatch( itemUpdate( id, { results: [ ...results, [ item.id, 0 ] ] } ) )
       return PROGRESS_ONGOING
     } else {
