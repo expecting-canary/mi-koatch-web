@@ -4,7 +4,7 @@ import {
   PROGRESS_ONGOING,
   PROGRESS_PAUSED,
   PROGRESS_TODO,
-} from 'src/types'
+} from 'src/constants'
 
 export type IProgress =
   | typeof PROGRESS_TODO

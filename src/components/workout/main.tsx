@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Item } from 'src/components'
 import { ContextProviderLevel } from 'src/contexts'
 import { getItems, workoutSelector } from 'src/state'
-import { IItem, IItemData } from 'src/types'
+import { IItem } from 'src/types'
 import { find } from 'src/util'
 
 export function Workout() {
@@ -16,17 +16,16 @@ export function Workout() {
       return <span>Exercice</span>
     case 'STRUCTURE':
       const structure = find( items, workout.id )
-      const datas = [ structure ] as Array<IItem | IItemData>
+      const datas = [ structure ] as IItem[]
 
       workout.index.forEach( ( index, i ) => {
         const last = datas[ i ]
-        let data: IItem | IItemData
+        let data: IItem
         switch( last.type ) {
           case 'STRUCTURE_SESSION':
-            data =
-              'result' in last && last.result[ index ]
-                ? find( items, last.result[ index ] )
-                : last.content[ index ]
+            data = 'results' in last && last.results[ index ]
+              ? find( items, last.results[ index ] )
+              : find( items, last.content[ index ] )
             break
           default:
             throw new Error()
@@ -37,6 +36,7 @@ export function Workout() {
       const Items = datas.map( ( data, index ) => (
         <ContextProviderLevel key={index} level={index}>
           <Item item={data} />
+          <br/>
         </ContextProviderLevel>
       ) )
 

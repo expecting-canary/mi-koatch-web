@@ -1,18 +1,12 @@
+import { PROGRESS_DONE, PROGRESS_ONGOING } from 'src/constants'
 import {
-  itemActionCreate as itemActionCreate,
+  itemActionCreate,
+  itemActionNext,
   itemStart,
   itemStop,
-  itemThunkNext,
   itemUpdate,
-  switchStructureExercice,
 } from 'src/state'
-import {
-  IProgress,
-  IStructureSession as Data,
-  PROGRESS_DONE,
-  PROGRESS_ONGOING,
-  Thunk,
-} from 'src/types'
+import { IProgress, IStructureSession as Data, Thunk } from 'src/types'
 import { find } from 'src/util'
 
 export function sessionStart( session: Data ): Thunk<IProgress> {
@@ -27,8 +21,10 @@ export function sessionNext( session: Data ): Thunk<IProgress> {
     if( session.state !== PROGRESS_DONE ) {
       const index = session.content.length
       if( index > 0 ) {
-        const state = dispatch( contentNext( session, index ) )
-        if( state !== 'DONE' ) { return PROGRESS_ONGOING }
+        const state = dispatch( itemActionNext( session.content[ index ] ) )
+        if( state !== PROGRESS_DONE ) {
+          return PROGRESS_ONGOING
+        }
       }
       if( session.content[ index + 1 ] ) {
         return dispatch( contentStart( session, index + 1 ) )
@@ -42,21 +38,12 @@ export function sessionNext( session: Data ): Thunk<IProgress> {
 function contentStart( session: Data, index: number ): Thunk<IProgress> {
   return ( dispatch, getState ) => {
     const template = find( getState().items, session.content[ index ] )
-    const item = dispatch( itemActionCreate( template, true ) )
-    const content = [ ...session.content, item.id ]
-    dispatch( itemUpdate( session.id, { content } ) )
+    const content = dispatch( itemActionCreate( template, true ) )
+    dispatch(
+      itemUpdate( session.id, { content: [ ...session.content, content.id ] } ),
+    )
     return PROGRESS_ONGOING
   }
-}
-
-function contentNext( session: Data, index: number ): Thunk<IProgress> {
-  const id = session.content[ index ]
-  return dispatch =>
-    switchStructureExercice(
-      session.content[ index ],
-      () => dispatch( itemThunkNext( id ) ),
-      () => dispatch( itemStop( id ) ),
-    )
 }
 
 export function sessionStop( session: Data ): Thunk<IProgress> {

@@ -1,20 +1,20 @@
 import { Card, CardContent, CardHeader, Divider } from '@material-ui/core'
 import React from 'react'
-import { IExerciceWorkoutData, IExerciceWorkoutTemplate } from 'src/types'
+import { IExerciceWorkout } from 'src/types'
 
 import { ExerciceWorkoutData } from './data'
 
 export function ExerciceWorkout( {
   workout,
 }: {
-  workout: IExerciceWorkoutTemplate | IExerciceWorkoutData,
+  workout: IExerciceWorkout,
 } ) {
   return (
     <Card>
       <CardHeader title="Exercice" />
       <Divider />
       <CardContent>
-        <ExerciceWorkoutData data={workout} />
+        <ExerciceWorkoutData workout={workout} />
       </CardContent>
     </Card>
   )

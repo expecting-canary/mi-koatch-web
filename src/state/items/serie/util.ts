@@ -2,7 +2,7 @@ import { STRUCTURE_SERIE } from 'src/constants'
 import { itemCreateBase } from 'src/state'
 import { IStructureSerie } from 'src/types'
 
-export function createSerie(
+export function itemSerieCreate(
   template: Partial<IStructureSerie> = {},
 ): IStructureSerie {
   return {

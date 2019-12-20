@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch as useReduxDispatch } from 'react-redux'
 import { Dispatch } from 'src/types'
 
-export const useThunk = useDispatch as ( () => Dispatch )
+export const useDispatch = useReduxDispatch as ( () => Dispatch )

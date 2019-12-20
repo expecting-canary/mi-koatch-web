@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
-import { WORKOUT_SELECT, WORKOUT_SET } from 'src/state'
+import { WORKOUT_SELECT, WORKOUT_SET } from 'src/constants'
 import {
   ID,
   IWorkout,

@@ -2,12 +2,11 @@ import React from 'react'
 import {
   EXERCICE_RUNNING,
   EXERCICE_WORKOUT,
-  IItem,
-  IItemData,
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
-} from 'src/types'
+} from 'src/constants'
+import { IItem } from 'src/types'
 
 import { ExerciceWorkout } from './exercices'
 import { StructureSerie, StructureSession } from './structures'
@@ -15,7 +14,7 @@ import { StructureSerie, StructureSession } from './structures'
 export function Item( {
   item,
 }: {
-  item: IItem | IItemData,
+  item: IItem,
 } ): JSX.Element | null {
   switch( item.type ) {
     case STRUCTURE_SESSION:

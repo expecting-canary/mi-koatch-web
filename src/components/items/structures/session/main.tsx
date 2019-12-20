@@ -1,11 +1,11 @@
 import { Card, CardHeader, Divider } from '@material-ui/core'
 import React from 'react'
-import { IStructureSession, IStructureSessionData } from 'src/types'
+import { IStructureSession } from 'src/types'
 
 import { StructureSessionContent } from './data'
 
 interface IStructureSessionProps {
-  session: IStructureSession | IStructureSessionData
+  session: IStructureSession
 }
 
 export function StructureSession( { session }: IStructureSessionProps ) {

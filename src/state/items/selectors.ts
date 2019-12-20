@@ -15,9 +15,9 @@ export function getItem( state: IState, id: ID ) {
 export const getTodos = createSelector( getItems, items =>
   items.filter( item => itemHasState( item, PROGRESS_TODO ) ),
 )
-export const getOngoing = createSelector( getItems, ( items ): IData[] =>
+export const getOngoing = createSelector( getItems, items =>
   items.filter( item => itemHasState( item, PROGRESS_ONGOING ) ),
 )
-export const getDones = createSelector( getItems, ( items ): IData[] =>
+export const getDones = createSelector( getItems, items =>
   items.filter( item => itemHasState( item, PROGRESS_DONE ) ),
 )

@@ -1,9 +1,9 @@
 import { Card, CardContent, Typography } from '@material-ui/core'
 import React from 'react'
-import { IStructureSerie, IStructureSerieData } from 'src/types'
+import { IStructureSerie } from 'src/types'
 
 interface IStructureSerieProps {
-  serie: IStructureSerie | IStructureSerieData
+  serie: IStructureSerie
 }
 
 export function StructureSerie( { serie }: IStructureSerieProps ) {

@@ -16,8 +16,7 @@ The name of the model targeted by the exported item.
 
 The type of logic implemented in the exported item :
 
-- **Action** : create an **action** ready for **dispatch**.
-- **Thunk** : is a **thunk** or create a **thunk** with parameters to **dispatch** successive **actions**.
+- **Action** : create an **action** or a **thunk** ready for **dispatch**.
 - **Do** : modify the given **model**, used as **handlers** for the **reducers**.
 - **Selector** : take the **application state** and return data linked to the **model**.
 
@@ -29,7 +28,7 @@ A succinct description of the effect of the item.
 
 ```typescript
 // create an action starting the exercice
-export function exerciceActionStart(exercice: Exercice): Action { ... };
+export function exerciceActionStart(exercice: Exercice): Action | Thunk { ... };
 
 // take the state and return all exercices of type workout with a state 'TODO'
 export function exerciceWorkoutSelectorTodo(state: State): ExerciceWorkout[] { ... };

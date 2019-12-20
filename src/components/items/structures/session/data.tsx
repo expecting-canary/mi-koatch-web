@@ -9,27 +9,25 @@ import {
 } from '@material-ui/core'
 import { Add, Edit } from '@material-ui/icons'
 import React from 'react'
-import { useContextLevel } from 'src/contexts'
+import { useSelector } from 'react-redux'
 import {
   EXERCICE_RUNNING,
   EXERCICE_WORKOUT,
-  IItemData,
-  IStructureSession,
   STRUCTURE_ROTATION,
   STRUCTURE_SERIE,
   STRUCTURE_SESSION,
-} from 'src/types'
+} from 'src/constants'
+import { useContextLevel } from 'src/contexts'
+import { getItems } from 'src/state'
+import { ID, IItem } from 'src/types'
+import { find } from 'src/util'
 
-interface StructureSessionContentProps {
-  content: IStructureSession[ 'content' ]
-}
-
-export function StructureSessionContent( {
-  content,
-}: StructureSessionContentProps ) {
-  const listItems = content.map( ( item, index ) =>
-    <Item {...{ index, item, key: index }} />,
-  )
+export function StructureSessionContent( { content }: { content: ID[] } ) {
+  const items = useSelector( getItems )
+  const listItems = content.map( ( key, index ) => {
+    const item = find( items, key )
+    return <Item {...{ index, item, key }} />
+  } )
   return (
     <List disablePadding subheader={bulderHeader()} dense>
       {listItems}
@@ -37,7 +35,10 @@ export function StructureSessionContent( {
   )
 }
 
-interface ItemProps { index: number, item: IItemData }
+interface ItemProps {
+  index: number
+  item: IItem
+}
 
 function Item( { index, item }: ItemProps ) {
   const select = useContextLevel()
@@ -66,7 +67,7 @@ function bulderHeader() {
   )
 }
 
-function buildContentItem( item: IStructureSession[ 'content' ][ number ] ) {
+function buildContentItem( item: IItem ) {
   switch( item.type ) {
     case STRUCTURE_SESSION:
     case STRUCTURE_SERIE:

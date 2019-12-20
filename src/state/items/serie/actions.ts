@@ -11,7 +11,7 @@ export function serieStart( serie: IStructureSerie ): Thunk<IProgress> {
 }
 
 export function serieNextStep( serie: IStructureSerie ): Thunk<IProgress> {
-  return function( dispatch, getState ) {
+  return ( dispatch, getState ) => {
     const { id, results, content, series } = serie
     const index = results.length - 1
 
@@ -22,7 +22,7 @@ export function serieNextStep( serie: IStructureSerie ): Thunk<IProgress> {
         // If no rest in ongoing item, start rest
         nextResult[ index ] = [ item, Date.now() ]
         dispatch( itemUpdate( id, { results: nextResult } ) )
-        return 'ONGOING'
+        return PROGRESS_ONGOING
       } else {
         // Else stop item
         nextResult[ index ] = [ item, Date.now() - rest ]
@@ -38,12 +38,22 @@ export function serieNextStep( serie: IStructureSerie ): Thunk<IProgress> {
       dispatch( itemUpdate( id, { results: [ ...results, [ item.id, 0 ] ] } ) )
       return PROGRESS_ONGOING
     } else {
-      dispatch( serieStop( serie ) )
-      return PROGRESS_DONE
+      return dispatch( serieStop( serie ) )
     }
   }
 }
 
-export function serieStop( serie: IStructureSerie ): Thunk {
-  return dispatch => dispatch( itemStop( serie.id ) )
+export function serieStop( serie: IStructureSerie ): Thunk<IProgress> {
+  return ( dispatch, getState ) => {
+    const items = getState().items
+    const lastId = serie.results[ serie.results.length - 1 ][ 0 ]
+    if(
+      serie.content.length > serie.results.length ||
+      find( items, lastId ).state !== PROGRESS_DONE
+    ) {
+      dispatch( itemStop( lastId ) )
+    }
+    dispatch( itemStop( serie.id ) )
+    return PROGRESS_DONE
+  }
 }

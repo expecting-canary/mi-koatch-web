@@ -1,10 +1,10 @@
-import { IData, IItem, IItemUpdater } from 'src/types'
+import { IItem, IItemUpdater } from 'src/types'
 
-export function itemDoStart( item: IData ) {
+export function itemDoStart( item: IItem ) {
   item.state = 'ONGOING'
   item.start = Date.now()
 }
-export function itemDoStop( item: IData ) {
+export function itemDoStop( item: IItem ) {
   item.state = 'DONE'
   item.stop = Date.now()
 }
